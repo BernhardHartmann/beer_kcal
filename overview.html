@@ -36,10 +36,10 @@
         var bounds = new google.maps.LatLngBounds;
         var markersArray = [];
 
-        var origin1 = {lat: 48.158190, lng: 16.382078};
+        //var origin1 = {lat: 48.158190, lng: 16.382078};
         var origin2 = 'FH campous Wien, Austria';
-        var destinationA = 'Reumannplatz, Wien, Austria';
-        var destinationB = {lat: 48.2080194, lng: 16.3720473};
+        //var destinationA = 'Reumannplatz, Wien, Austria';
+        //var destinationB = {lat: 48.2080194, lng: 16.3720473};
 
         var destinationIcon = 'https://chart.googleapis.com/chart?' +
             'chst=d_map_pin_letter&chld=D|FF0000|000000';
@@ -51,10 +51,14 @@
         });
         var geocoder = new google.maps.Geocoder;
 
+        var destinations = JSON.parse(localStorage.getItem("destinations"));
+
+        console.log(destinations);
+
         var service = new google.maps.DistanceMatrixService;
         service.getDistanceMatrix({
-          origins: [origin1, origin2],
-          destinations: [destinationA, destinationB],
+          origins: [origin2],
+          destinations: destinations,
           travelMode: 'WALKING',
           unitSystem: google.maps.UnitSystem.METRIC, 
           avoidHighways: false,
@@ -125,9 +129,6 @@
         }
       }
     </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAo76SGNpJPE2iYYu-t1oXM8zmviCioXu4&callback=initMap">
-    </script>	
 
 </head>
 
@@ -150,7 +151,7 @@
             </div>
         </nav>
         <form id="beerNamesForm">
-            
+
             <div class="row">
                 <div class="col-8">
 
@@ -158,7 +159,7 @@
                         <input type="search" class="form-control" id="beerNames" aria-describedby="beerHelp" placeholder="Auf welches Bier hast du Bock?">
                         <small id="beerHelp" class="form-text text-muted">All beers from the Brau Union are available.</small>
                     </div>
-                   
+
 
                 </div>
                 <div class="col-4">
@@ -182,53 +183,57 @@
                 <!--Map-->
             </div>
         </div>
-       
+
     </div>
 
     <main class="cd-main container margin-top-xxl">
         <div class="text-component text-center">
             <a href="#0" id="data_price" class="cd-add-to-cart js-cd-add-to-cart" onclick="myFunction()" data-price=""> Add your calories</a>
         </div>
-     </main>
-      
-      <div class="cd-cart cd-cart--empty js-cd-cart">
-          <a href="#0" class="cd-cart__trigger text-replace">
-              Cart
-              <ul class="cd-cart__count"> <!-- cart items count -->
-                  <li>0</li>
-                  <li>0</li>
-              </ul> <!-- .cd-cart__count -->
-          </a>
-      
-          <div class="cd-cart__content">
-              <div class="cd-cart__layout">
-                  <header class="cd-cart__header">
-                      <h2>Cart</h2>
-                      <span class="cd-cart__undo">Item removed. <a href="#0">Undo</a></span>
-                  </header>
-                  
-                  <div class="cd-cart__body">
-                      <ul>
-                          <!-- products added to the cart will be inserted here using JavaScript -->
-                      </ul>
-                  </div>
-      
-                  <footer class="cd-cart__footer">
-                      <a href="#0" class="cd-cart__checkout">
-                      <em> kcal total: <span>0</span>
-                  <svg class="icon icon--sm" viewBox="0 0 24 24"><g fill="none" stroke="currentColor"><line stroke-width="2" stroke-linecap="round" stroke-linejoin="round" x1="3" y1="12" x2="21" y2="12"/><polyline stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="15,6 21,12 15,18 "/></g>
-                  </svg>
-                </em>
-              </a>
-                  </footer>
-              </div>
-             
-          </div> <!-- .cd-cart__content -->
-      </div> <!-- cd-cart -->
-      
+    </main>
+
+    <div class="cd-cart cd-cart--empty js-cd-cart">
+        <a href="#0" class="cd-cart__trigger text-replace">
+            Cart
+            <ul class="cd-cart__count">
+                <!-- cart items count -->
+                <li>0</li>
+                <li>0</li>
+            </ul> <!-- .cd-cart__count -->
+        </a>
+
+        <div class="cd-cart__content">
+            <div class="cd-cart__layout">
+                <header class="cd-cart__header">
+                    <h2>Cart</h2>
+                    <span class="cd-cart__undo">Item removed. <a href="#0">Undo</a></span>
+                </header>
+
+                <div class="cd-cart__body">
+                    <ul>
+                        <!-- products added to the cart will be inserted here using JavaScript -->
+                    </ul>
+                </div>
+
+                <footer class="cd-cart__footer">
+                    <a href="#0" class="cd-cart__checkout">
+                        <em>
+                            kcal total: <span>0</span>
+                            <svg class="icon icon--sm" viewBox="0 0 24 24">
+                                <g fill="none" stroke="currentColor"><line stroke-width="2" stroke-linecap="round" stroke-linejoin="round" x1="3" y1="12" x2="21" y2="12" /><polyline stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="15,6 21,12 15,18 " /></g>
+                            </svg>
+                        </em>
+                    </a>
+                </footer>
+            </div>
+
+        </div> <!-- .cd-cart__content -->
+    </div> <!-- cd-cart -->
 
 
-    <div id="DB_Bier" style="display:none;">Bier_ID,Bier_name,Trinktemperatur,Alkohol,Kalorien_je_100ml,Stammwuerze,Beschreibung
+
+    <div id="DB_Bier" style="display:none;">
+        Bier_ID,Bier_name,Trinktemperatur,Alkohol,Kalorien_je_100ml,Stammwuerze,Beschreibung
         B0001,Affligem Blonde,7,6.8,56,154°,Sechs Ritter tauschten ihr Rüstungen gegen schlichte Mönchskutten und gründeten im Jahr 1074 im Herzen von Belgien die Abtei von Affligem. Seit jener Zeit wird dort ein Bier gebraut bis heute unverändert in der Rezeptur. Es zählt zu den ältesten von nur 22 Abteibieren weltweit. Was es aber so ganz besonders macht ist die zweite Gärungsphase - direkt in der Flasche. Affligem Blonde ist eine leuchtend-goldgelbe Spezialität. Geruch nach frischem Brot Zitrusfrüchten und einem Hauch Vanille. Im Geschmack feine Nuancen von Marzipan und Mandel mit einer leichten Bittere im Abgang. Entfaltet sich am besten im Markenglas aber auch in einem Rotweinglas.
         B0002,Affligem Double,7,6.8,57,154°,Sechs Ritter tauschten ihr Rüstungen gegen schlichte Mönchskutten und gründeten im Jahr 1074 im Herzen von Belgien die Abtei von Affligem. Seit jener Zeit wird dort ein Bier gebraut bis heute unverändert in der Rezeptur. Es zählt zu den ältesten von nur 22 Abteibieren weltweit. Was es aber so ganz besonders macht ist die zweite Gärungsphase - direkt in der Flasche. Das Affligem Double ist edel rötlich-braun schimmernd mit einem Geruch der an Anis Rosinen Bananen und Nelke erinnert. Mit einem leicht karamelligen Geschmack fein prickelnd und einem würzigen Aroma. Entfaltet sich am besten im Markenglas aber auch in einem Rotweinglas.
         B0003,Bierspezialitäten Bernstein,8,4.1,45,121°,"Die Bierspezialität ""Bernstein"" ist ein leichtes aber dichtes Bier mit vollmundigem Auftritt. Mit einer Rezeptur die schon mehr als 350 Jahre alt ist ist das Bernstein ein ganz besonderes Stück österreichische Brautradition. Die würzige Note hat einen besonderen Ursprung: Das Beifügen einer kleinen Menge heißer Bierwürze zur Reifung des Jungbieres führt zu diesem einzigartigen unvergleichlichen Geschmack."
@@ -348,6 +353,9 @@
 
 
 
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAo76SGNpJPE2iYYu-t1oXM8zmviCioXu4&callback=initMap">
+    </script>
 </body>
 
 <script src="script/util.js"></script> <!-- util functions included in the CodyHouse framework -->
