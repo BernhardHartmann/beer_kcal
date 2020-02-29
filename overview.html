@@ -27,7 +27,7 @@
 
         function myFunction(){
           //document.getElementById("beer").value
-          alert( localStorage.getItem("cal"));
+         // alert( localStorage.getItem("cal"));
             abcd = document.getElementById("data_price").setAttribute("data-price", localStorage.getItem("cal"));
 
         }
@@ -96,7 +96,7 @@
               var results = response.rows[i].elements;
               geocoder.geocode({'address': originList[i]},
                   showGeocodedAddressOnMap(false));
-              for (var j = 0; j < results.length; j++) {
+              for (var j = 0; j < 4; j++) {
 
                 geocoder.geocode({'address': destinationList[j]},
                     showGeocodedAddressOnMap(true));
@@ -118,7 +118,7 @@
 	  
 	  function calc_calories_on_distance(person,durationSecs){
         //alert(person.age)
-        durationHours = durationSecs*0.000277778;
+        durationHours = durationSecs/60/60;
         //alert(durationHours);
         Met = 3.3;
 
@@ -128,13 +128,14 @@
         
         if(obj.gender == "Male"){
           BMR = 66 + (6.23 * obj.lbs) + (12.7 * obj.inches) - (6.8 * obj.age);
-         document.getElementById("kcal").innerHTML += "calories male"+BMR*Met/24 * durationHours;
+          document.getElementById("kcal").innerHTML += BMR*Met/24 * durationHours + " <br> ";
+
         //  alert("calories male"+BMR*Met/24 * 1);
 
         }else{
           if(obj.gender == "Female"){
             BMR = 655 + (4.35 *obj.lbs) + (4.7 *obj.inches) - (4.7 * obj.age);
-            document.getElementById("kcal").innerHTML += BMR*Met/24 * durationHours;
+            document.getElementById("kcal").innerHTML += BMR*Met/24 * durationHours + "</br>";
             //alert("calories "+BMR*Met/24 * durationHours);  
           }
         }

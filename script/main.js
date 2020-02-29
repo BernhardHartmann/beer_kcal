@@ -68,7 +68,7 @@
 			if(animatingQuantity) return;
 			var cartIsEmpty = Util.hasClass(cart[0], 'cd-cart--empty');
 			//update cart product list
-			addProduct(22);
+			addProduct(localStorage.getItem("cal"));
 			//update number of items 
 			updateCartCount(cartIsEmpty);
 			//update total price
