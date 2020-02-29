@@ -68,7 +68,7 @@
 			if(animatingQuantity) return;
 			var cartIsEmpty = Util.hasClass(cart[0], 'cd-cart--empty');
 			//update cart product list
-			addProduct(beer);
+			addProduct(22);
 			//update number of items 
 			updateCartCount(cartIsEmpty);
 			//update total price
@@ -104,10 +104,11 @@
 			// you should also check if the product was already in the cart -> if it is, just update the quantity
             productId = productId + 1;
 
-            beer = document.getElementById("data_price").getAttribute("data-price");
+			beer = localStorage.getItem("cal");
+			//document.getElementById("data_price").getAttribute("data-price");
 
             var productAdded = '<li class="cd-cart__product"><div class="cd-cart__image"><a href="#0">'+
-            '<img src="assets/img/product-preview.png" alt="placeholder"></a></div>'+
+            '<img src="img/product-preview.png" alt="placeholder"></a></div>'+
             '<div class="cd-cart__details"><h3 class="truncate"><a href="#0">Product Name</a></h3>'+
             '<span id="myCaloriesID" class="cd-cart__price">'+beer+'</span><div class="cd-cart__actions">'+
             '<a href="#0" class="cd-cart__delete-item">Delete</a><div class="cd-cart__quantity">'+

@@ -44,6 +44,8 @@ function getAllBarsFromBeerName() {
 
         var beerId = arrayBeer[index][0].trim();
         var calories = arrayBeer[index][4];
+        localStorage.setItem("cal", calories);
+
         //console.log(calories);
 
         var beerDetailsHtml = document.getElementById("beerDetails");
