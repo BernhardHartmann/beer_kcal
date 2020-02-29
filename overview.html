@@ -30,6 +30,9 @@
         }
 
       function initMap() {
+        person = localStorage.getItem('person');
+        console.log('person: ', JSON.parse(person));
+
         var bounds = new google.maps.LatLngBounds;
         var markersArray = [];
 
