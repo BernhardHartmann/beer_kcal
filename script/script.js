@@ -28,6 +28,9 @@ function getAllBarsFromBeerName() {
         var arrayPubs = parseCSVinArray(localStorage.getItem("arrayPubs"));
         arrayPubs.shift();
         arrayPubs.shift();
+        arrayPubs.pop();
+
+        console.log(arrayPubs);
 
         var arrayBeerNames = localStorage.getItem("arrayBeerNames").split(",");
 
@@ -43,10 +46,22 @@ function getAllBarsFromBeerName() {
 
         var calories = arrayBeer[index][4];
 
-        arrayPubs.forEach(element => {
-            if (element[2].toString().indexOf(beerId) > -1)
+        var destinations = [];
 
-            $("#listOfBars").append('<li>' + element[1] + '</li>');
+        arrayPubs.forEach(element => {
+            if (element[2].toString().indexOf(beerId) > -1) {
+
+                var dest = new Object();
+                dest.lat = element[3];
+                dest.lng = element[4];
+
+                destinations.push(dest);
+
+                $("#listOfBars").append('<li>' + element[1] + '</li>');
+
+            }
+
+            localStorage.setItem("destinations", JSON.stringify(destinations));
         });
 
         return beerName;

@@ -28,10 +28,10 @@
         var bounds = new google.maps.LatLngBounds;
         var markersArray = [];
 
-        var origin1 = {lat: 48.158190, lng: 16.382078};
+        //var origin1 = {lat: 48.158190, lng: 16.382078};
         var origin2 = 'FH campous Wien, Austria';
-        var destinationA = 'Reumannplatz, Wien, Austria';
-        var destinationB = {lat: 48.2080194, lng: 16.3720473};
+        //var destinationA = 'Reumannplatz, Wien, Austria';
+        //var destinationB = {lat: 48.2080194, lng: 16.3720473};
 
         var destinationIcon = 'https://chart.googleapis.com/chart?' +
             'chst=d_map_pin_letter&chld=D|FF0000|000000';
@@ -43,10 +43,14 @@
         });
         var geocoder = new google.maps.Geocoder;
 
+        var destinations = JSON.parse(localStorage.getItem("destinations"));
+
+        console.log(destinations);
+
         var service = new google.maps.DistanceMatrixService;
         service.getDistanceMatrix({
-          origins: [origin1, origin2],
-          destinations: [destinationA, destinationB],
+          origins: [origin2],
+          destinations: destinations,
           travelMode: 'WALKING',
           unitSystem: google.maps.UnitSystem.METRIC, 
           avoidHighways: false,
@@ -117,9 +121,6 @@
         }
       }
     </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAo76SGNpJPE2iYYu-t1oXM8zmviCioXu4&callback=initMap">
-    </script>	
 
 </head>
 
@@ -146,7 +147,7 @@
             </div>
         </nav>
         <form id="beerNamesForm">
-            
+
             <div class="row">
                 <div class="col-8">
 
@@ -154,7 +155,7 @@
                         <input type="search" class="form-control" id="beerNames" aria-describedby="beerHelp" placeholder="Auf welches Bier hast du Bock?">
                         <small id="beerHelp" class="form-text text-muted">Es sind alle Biere der Brau Union möglich.</small>
                     </div>
-                   
+
 
                 </div>
                 <div class="col-4">
@@ -177,53 +178,57 @@
                 <!--Map-->
             </div>
         </div>
-       
+
     </div>
 
     <main class="cd-main container margin-top-xxl">
         <div class="text-component text-center">
             <a href="#0" id="data_price" class="cd-add-to-cart js-cd-add-to-cart" onclick="myFunction()" data-price=""> Add your calories</a>
         </div>
-     </main>
-      
-      <div class="cd-cart cd-cart--empty js-cd-cart">
-          <a href="#0" class="cd-cart__trigger text-replace">
-              Cart
-              <ul class="cd-cart__count"> <!-- cart items count -->
-                  <li>0</li>
-                  <li>0</li>
-              </ul> <!-- .cd-cart__count -->
-          </a>
-      
-          <div class="cd-cart__content">
-              <div class="cd-cart__layout">
-                  <header class="cd-cart__header">
-                      <h2>Cart</h2>
-                      <span class="cd-cart__undo">Item removed. <a href="#0">Undo</a></span>
-                  </header>
-                  
-                  <div class="cd-cart__body">
-                      <ul>
-                          <!-- products added to the cart will be inserted here using JavaScript -->
-                      </ul>
-                  </div>
-      
-                  <footer class="cd-cart__footer">
-                      <a href="#0" class="cd-cart__checkout">
-                      <em> kcal total: <span>0</span>
-                  <svg class="icon icon--sm" viewBox="0 0 24 24"><g fill="none" stroke="currentColor"><line stroke-width="2" stroke-linecap="round" stroke-linejoin="round" x1="3" y1="12" x2="21" y2="12"/><polyline stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="15,6 21,12 15,18 "/></g>
-                  </svg>
-                </em>
-              </a>
-                  </footer>
-              </div>
-             
-          </div> <!-- .cd-cart__content -->
-      </div> <!-- cd-cart -->
-      
+    </main>
+
+    <div class="cd-cart cd-cart--empty js-cd-cart">
+        <a href="#0" class="cd-cart__trigger text-replace">
+            Cart
+            <ul class="cd-cart__count">
+                <!-- cart items count -->
+                <li>0</li>
+                <li>0</li>
+            </ul> <!-- .cd-cart__count -->
+        </a>
+
+        <div class="cd-cart__content">
+            <div class="cd-cart__layout">
+                <header class="cd-cart__header">
+                    <h2>Cart</h2>
+                    <span class="cd-cart__undo">Item removed. <a href="#0">Undo</a></span>
+                </header>
+
+                <div class="cd-cart__body">
+                    <ul>
+                        <!-- products added to the cart will be inserted here using JavaScript -->
+                    </ul>
+                </div>
+
+                <footer class="cd-cart__footer">
+                    <a href="#0" class="cd-cart__checkout">
+                        <em>
+                            kcal total: <span>0</span>
+                            <svg class="icon icon--sm" viewBox="0 0 24 24">
+                                <g fill="none" stroke="currentColor"><line stroke-width="2" stroke-linecap="round" stroke-linejoin="round" x1="3" y1="12" x2="21" y2="12" /><polyline stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="15,6 21,12 15,18 " /></g>
+                            </svg>
+                        </em>
+                    </a>
+                </footer>
+            </div>
+
+        </div> <!-- .cd-cart__content -->
+    </div> <!-- cd-cart -->
 
 
-    <div id="DB_Bier" style="display:none;">Bier_ID,Bier_name,Trinktemperatur,Alkohol,Kalorien_je_100ml,Stammwuerze,Beschreibung
+
+    <div id="DB_Bier" style="display:none;">
+        Bier_ID,Bier_name,Trinktemperatur,Alkohol,Kalorien_je_100ml,Stammwuerze,Beschreibung
         B0001,Affligem Blonde,7,6.8,56,154°,Sechs Ritter tauschten ihr Rüstungen gegen schlichte Mönchskutten und gründeten im Jahr 1074 im Herzen von Belgien die Abtei von Affligem. Seit jener Zeit wird dort ein Bier gebraut bis heute unverändert in der Rezeptur. Es zählt zu den ältesten von nur 22 Abteibieren weltweit. Was es aber so ganz besonders macht ist die zweite Gärungsphase - direkt in der Flasche. Affligem Blonde ist eine leuchtend-goldgelbe Spezialität. Geruch nach frischem Brot Zitrusfrüchten und einem Hauch Vanille. Im Geschmack feine Nuancen von Marzipan und Mandel mit einer leichten Bittere im Abgang. Entfaltet sich am besten im Markenglas aber auch in einem Rotweinglas.
         B0002,Affligem Double,7,6.8,57,154°,Sechs Ritter tauschten ihr Rüstungen gegen schlichte Mönchskutten und gründeten im Jahr 1074 im Herzen von Belgien die Abtei von Affligem. Seit jener Zeit wird dort ein Bier gebraut bis heute unverändert in der Rezeptur. Es zählt zu den ältesten von nur 22 Abteibieren weltweit. Was es aber so ganz besonders macht ist die zweite Gärungsphase - direkt in der Flasche. Das Affligem Double ist edel rötlich-braun schimmernd mit einem Geruch der an Anis Rosinen Bananen und Nelke erinnert. Mit einem leicht karamelligen Geschmack fein prickelnd und einem würzigen Aroma. Entfaltet sich am besten im Markenglas aber auch in einem Rotweinglas.
         B0003,Bierspezialitäten Bernstein,8,4.1,45,121°,"Die Bierspezialität ""Bernstein"" ist ein leichtes aber dichtes Bier mit vollmundigem Auftritt. Mit einer Rezeptur die schon mehr als 350 Jahre alt ist ist das Bernstein ein ganz besonderes Stück österreichische Brautradition. Die würzige Note hat einen besonderen Ursprung: Das Beifügen einer kleinen Menge heißer Bierwürze zur Reifung des Jungbieres führt zu diesem einzigartigen unvergleichlichen Geschmack."
@@ -295,8 +300,10 @@
         B0069,Zipfer Pils,7,5.2,43,118°,Zipfer Pils leuchtet in hellem Goldton. Es besticht durch eine zarte durchgehende Hopfennote sowie durch seinen erfrischend feinen Geschmack der sich am Gaumen voll entwickelt.
         B0070,Zipfer Sparkling,7,5.2,42,115°,Zipfer Sparkling schimmert hellgelb und duftet angenehm frisch. Sein spritzig erfrischender Geschmack bringt dabei die zartherben Geschmacksnoten voll zur Geltung.
         B0071,Zipfer Stefani Bock,9,7.1,58,162°,Der Zipfer Stefani Bock strahlt in einem intensiven Goldgelb ist harmonisch und vollmundig. Sein kräftiger Geschmack mit feiner Hopfennote begeistert nicht nur Bierkenner und -genießer. Der Zipfer Stefani Bock ist verfügbar ab Oktober - nur solange der Vorrat reicht.
-        B0072,Zipfer Urtyp,7,5.4,44,122°,Die Spitzensorte der Brauerei Zipf glänzt in hellem Goldgelb und ist voll im Geschmack. Extraktreich und fruchtig mit feinherben Hopfennoten und dezenten Malztönen ist Zipfer Urtyp der Inbegriff eines heimischen Premium-Biers.</div>
-    <div id="DB_Lokale" style="display:none;">Lokal_ID,Lokalname,bierID,geo_latitude,geo_longitude,Beschreibung
+        B0072,Zipfer Urtyp,7,5.4,44,122°,Die Spitzensorte der Brauerei Zipf glänzt in hellem Goldgelb und ist voll im Geschmack. Extraktreich und fruchtig mit feinherben Hopfennoten und dezenten Malztönen ist Zipfer Urtyp der Inbegriff eines heimischen Premium-Biers.
+    </div>
+    <div id="DB_Lokale" style="display:none;">
+        Lokal_ID,Lokalname,bierID,geo_latitude,geo_longitude,Beschreibung
         L0001,Aida,,482080194,163720473,Aida ist eine Wiener Konditoreikette. Das Design der 50er 60er und 70er opulente Süßspeisen hervorragender Kaffee und viel Rosa sind die Zutaten zum Erfolg.
         L0002,Altmann & Kühne,,482083379,163709213,"Die „kleinste Verführung"" Wiens: handgefertigte Bonbons nach alten Originalrezepten (weltweiter Versand!). "
         L0003,Anna Sacher,,482038663,163697551,Facettenreich wie der Charakter seiner Namensgeberin präsentiert sich dieses 2-Hauben-Restaurant
@@ -307,14 +314,14 @@
         L0008,Café Berg,B0019;B0072,482176676,163609186,"Das Café und die daneben ansässige Buchhandlung ""Löwenherz"" sind fixer Treffpunkt der Wiener Homosexuellen-Community und ihrer Freunde."
         L0009,Café Central,B0006;B0013;B0017;B0019;B0020;B0022;B0039;B0041;B0052;B0058;B0059;B0065;B0067;B0069;B0072;B0006;B0013;B0017;B0019;B0020;B0022;B0039;B0041;B0052;B0058;B0059;B0065;B0067;B0069;B0072,48210196,16365431,Das Café Central war immer wieder Heimat großer Dichter Lenker und Denker. Der Charme des berühmtesten Kaffeehauses der Welt macht jeden Besuch zu einem besonderen kulinarischen Erlebnis.
         L0010,Café Diglas,B0019;B0072,482086116,163752607,Ein Wiener Traditionscafé im Zentrum der Stadt. Hier wird Genuss groß geschrieben vom Frühstück bis zum Dinner gibt’s zu jeder Tageszeit das passende Angebot.
-        L0011,Café Drechsler,B0019;B0072,481984329,163623848,Das legendäre Café Drechsler  am Naschmarkt wurde vom britischen Stardesigner Sir Terence Conran mit viel Fingerspitzengefühl umgestaltet. Täglich 23 Stunden geöffnet – ab drei Uhr morgens werden die ersten Gäste verköstigt. 
+        L0011,Café Drechsler,B0019;B0072,481984329,163623848,Das legendäre Café Drechsler  am Naschmarkt wurde vom britischen Stardesigner Sir Terence Conran mit viel Fingerspitzengefühl umgestaltet. Täglich 23 Stunden geöffnet – ab drei Uhr morgens werden die ersten Gäste verköstigt.
         L0012,Café Hawelka,B0019;B0072,482078082,163697549,Eine Wiener Institution. Sein einzigartiger Charme macht das Hawelka zum beliebten Treffpunkt für Künstler und zu einem Ort der Ruhe - nur eine Seitengasse vom Stephansplatz entfernt.
         L0013,Café Landtmann,B0019;B0072,482114529,163615795,In diesem Wiener Traditions-Kaffeehaus waren u.a. Sigmund Freud Marlene Dietrich Romy Schneider Paul McCartney und Hillary Clinton zu Gast.
         L0014,Café Leopold,B0006;B0013;B0017;B0019;B0020;B0022;B0039;B0041;B0052;B0058;B0059;B0065;B0067;B0069;B0072;B0006;B0013;B0017;B0019;B0020;B0022;B0039;B0041;B0052;B0058;B0059;B0065;B0067;B0069;B0072,482046538,163585099,"Gestaltet hat das Lokal im Leopold Museum das Wiener Architektenteam Ortner & Ortner. Das Café zeigt besonders bei Einbruch der Dunkelheit viel Charme und Wärme. Gute ""neue"" Wiener Küche DJs am Abend. Schanigarten / Garten; Terasse"
         L0015,Café Prückel,B0019;B0072,48207674,163804718,Ein Ringstraßen-Café gegenüber dem Museum für angewandte Kunst dessen Interieur aus den 1950er-Jahren nicht nur Kaffeehaus-Freunde begeistert.
         L0016,Café Rüdigerhof,B0006;B0013;B0017;B0019;B0020;B0022;B0039;B0041;B0052;B0058;B0059;B0065;B0067;B0069;B0072;B0006;B0013;B0017;B0019;B0020;B0022;B0039;B0041;B0052;B0058;B0059;B0065;B0067;B0069;B0072,48195423,163552339,Karten spielen Zeitung lesen oder über Gott und die Welt plaudern: Im Café Rüdigerhof kommt keine Hektik auf. Das in der Nähe des Naschmarktes gelegene Lokal befindet sich in einem der schönsten Jugendstilhäuser Wiens.
         L0017,Café Sacher,B0019;B0072,482038663,163697551,Hier genießt man altehrwürdige Wiener Kaffeehaustradition am besten mit einer Sacher-Torte.
-        L0018,Café Stein,B0019;B0072;B0039,482156599,16361139,Ein angesagter Treff in einer angesagten Gegend.Ganz nahe bei der Universität trifft sich seit Ewigkeiten eine interessante Mischung aus alter und junger Szene. 
+        L0018,Café Stein,B0019;B0072;B0039,482156599,16361139,Ein angesagter Treff in einer angesagten Gegend.Ganz nahe bei der Universität trifft sich seit Ewigkeiten eine interessante Mischung aus alter und junger Szene.
         L0019,Chelsea,B0001;B0002;B0003;B0004;B0005;B0006;B0007;B0008;B0009;B0010;B0011;B0012;B0013;B0014;B0015;B0016;B0017;B0018;B0019;B0020;B0021;B0022;B0023;B0024;B0025;B0026;B0027;B0028;B0029;B0030;B0031;B0032;B0033;B0034;B0035;B0036;B0037;B0038;B0039;B0040;B0041;B0042;B0043;B0044;B0045;B0046;B0047;B0048;B0049;B0050;B0051;B0052;B0053;B0054;B0055;B0056;B0057;B0058;B0059;B0060;B0061;B0062;B0063;B0064;B0065;B0066;B0067;B0068;B0069;B0070;B0071;B0072;B0001;B0002;B0003;B0004;B0005;B0006;B0007;B0008;B0009;B0010;B0011;B0012;B0013;B0014;B0015;B0016;B0017;B0018;B0019;B0020;B0021;B0022;B0023;B0024;B0025;B0026;B0027;B0028;B0029;B0030;B0031;B0032;B0033;B0034;B0035;B0036;B0037;B0038;B0039;B0040;B0041;B0042;B0043;B0044;B0045;B0046;B0047;B0048;B0049;B0050;B0051;B0052;B0053;B0054;B0055;B0056;B0057;B0058;B0059;B0060;B0061;B0062;B0063;B0064;B0065;B0066;B0067;B0068;B0069;B0070;B0071;B0072,482112571,163478654,Das Urgestein der Gürtel-Lokale.Musik von Punk bis Brit-Pop. Jede Woche spielen hier auch mehrere Bands (oft aus England) live.
         L0020,Corbaci,B0006;B0013;B0017;B0019;B0020;B0022;B0039;B0041;B0052;B0058;B0059;B0065;B0067;B0069;B0072;B0006;B0013;B0017;B0019;B0020;B0022;B0039;B0041;B0052;B0058;B0059;B0065;B0067;B0069;B0072,482046538,163585099,Hier gehört hochwertige Architektur zum Pflichtprogramm: die bemerkenswerte Mosaikdecke steht im Kontrast zur restlichen minimalistischen Architektur des Lokals.
         L0021,Das Möbel - Das Café,B0019;B0072,482042672,163550872,Kein Tisch gleicht dem anderen jeder Sessel schaut anders aus - und die Gäste können hier nicht nur essen und trinken. Sondern auch die - ständig wechselnden - Einrichtungsstücke kaufen.
@@ -328,7 +335,7 @@
         L0029,Motto,B0019;B0072,481929409,163575794,"Das Restaurant Motto bewährt sich seit Jahren als Hotspot der Wiener Gastro-Szene. Hier mischen sich internationale Stars gerne unter das bunte Volk der ""Motto-Gäste""."
         L0030,Naschmarkt Deli,B0006;B0013;B0017;B0019;B0020;B0022;B0039;B0041;B0052;B0058;B0059;B0065;B0067;B0069;B0072;B0006;B0013;B0017;B0019;B0020;B0022;B0039;B0041;B0052;B0058;B0059;B0065;B0067;B0069;B0072,481997355,163656163,Ein beliebter Platz der Wiener Szene - Sounds zwischen Break Beats und Easy Listening von Wiener und internationalen DJs kann man hier hören.
         L0031,Pratersauna,B0006;B0013;B0017;B0019;B0020;B0022;B0039;B0041;B0052;B0058;B0059;B0065;B0067;B0069;B0072;B0006;B0013;B0017;B0019;B0020;B0022;B0039;B0041;B0052;B0058;B0059;B0065;B0067;B0069;B0072,482132942,164046699,Die großzügigen Räumlichkeiten einer ehemaligen Sauna im Prater sind Treffpunkt der Musik- Kunst- Kultur- und Lifestyle-Szene.
-        L0032,Ra'mien,B0019;B0072;B0039,48200167,163614752,Asiatische Fusionsküche in einem absolut coolen Ambiente. Nicht teuer nette Menschen und vor allem beste Qualität. 
+        L0032,Ra'mien,B0019;B0072;B0039,48200167,163614752,Asiatische Fusionsküche in einem absolut coolen Ambiente. Nicht teuer nette Menschen und vor allem beste Qualität.
         L0033,Restaurant Vestibül,B0001;B0002;B0003;B0004;B0005;B0006;B0007;B0008;B0009;B0010;B0011;B0012;B0013;B0014;B0015;B0016;B0017;B0018;B0019;B0020;B0021;B0022;B0023;B0024;B0025;B0026;B0027;B0028;B0029;B0030;B0031;B0032;B0033;B0034;B0035;B0036;B0037;B0038;B0039;B0040;B0041;B0042;B0043;B0044;B0045;B0046;B0047;B0048;B0049;B0050;B0051;B0052;B0053;B0054;B0055;B0056;B0057;B0058;B0059;B0060;B0061;B0062;B0063;B0064;B0065;B0066;B0067;B0068;B0069;B0070;B0071;B0072;B0001;B0002;B0003;B0004;B0005;B0006;B0007;B0008;B0009;B0010;B0011;B0012;B0013;B0014;B0015;B0016;B0017;B0018;B0019;B0020;B0021;B0022;B0023;B0024;B0025;B0026;B0027;B0028;B0029;B0030;B0031;B0032;B0033;B0034;B0035;B0036;B0037;B0038;B0039;B0040;B0041;B0042;B0043;B0044;B0045;B0046;B0047;B0048;B0049;B0050;B0051;B0052;B0053;B0054;B0055;B0056;B0057;B0058;B0059;B0060;B0061;B0062;B0063;B0064;B0065;B0066;B0067;B0068;B0069;B0070;B0071;B0072,482103678,163609253,Das Lokal im Burgtheater ist eine Großstadtbrasserie der Sonderklasse mit einem der schönsten Gastgärten der Stadt.
         L0034,Säulenhalle,B0019;B0072;B0039,4820722645,1636169742,Die Clubdiskothek mit dem blumengeschmückten und palmenbestückten Garten bietet Tanzunterhaltung mit Stil.
         L0035,Sky Café Restaurant Bar,B0006;B0013;B0017;B0019;B0020;B0022;B0039;B0041;B0052;B0058;B0059;B0065;B0067;B0069;B0072;B0006;B0013;B0017;B0019;B0020;B0022;B0039;B0041;B0052;B0058;B0059;B0065;B0067;B0069;B0072,482064095,16371684,Hier bietet sich vom obersten Stock des Kaufhauses Steffl ein hervorragender Blick über die Innenstadt.
@@ -338,10 +345,13 @@
         L0039,Unger und Klein,B0001;B0002;B0003;B0004;B0005;B0006;B0007;B0008;B0009;B0010;B0011;B0012;B0013;B0014;B0015;B0016;B0017;B0018;B0019;B0020;B0021;B0022;B0023;B0024;B0025;B0026;B0027;B0028;B0029;B0030;B0031;B0032;B0033;B0034;B0035;B0036;B0037;B0038;B0039;B0040;B0041;B0042;B0043;B0044;B0045;B0046;B0047;B0048;B0049;B0050;B0051;B0052;B0053;B0054;B0055;B0056;B0057;B0058;B0059;B0060;B0061;B0062;B0063;B0064;B0065;B0066;B0067;B0068;B0069;B0070;B0071;B0072;B0001;B0002;B0003;B0004;B0005;B0006;B0007;B0008;B0009;B0010;B0011;B0012;B0013;B0014;B0015;B0016;B0017;B0018;B0019;B0020;B0021;B0022;B0023;B0024;B0025;B0026;B0027;B0028;B0029;B0030;B0031;B0032;B0033;B0034;B0035;B0036;B0037;B0038;B0039;B0040;B0041;B0042;B0043;B0044;B0045;B0046;B0047;B0048;B0049;B0050;B0051;B0052;B0053;B0054;B0055;B0056;B0057;B0058;B0059;B0060;B0061;B0062;B0063;B0064;B0065;B0066;B0067;B0068;B0069;B0070;B0071;B0072,482133233,163721272,In dieser Kombination aus Weinhandlung und Bar gehen ästhetischer und kulinarischer Genuss eine wunderbare Symbiose ein.
         L0040,Volksgarten Clubdiskothek,B0019;B0072;B0039,482062953,163637448,Die Clubdiskothek mit dem blumengeschmückten und palmenbestückten Garten bietet Tanzunterhaltung mit Stil.
         L0041,Würstelstand Albertina,B0001;B0002;B0003;B0004;B0005;B0006;B0007;B0008;B0009;B0010;B0011;B0012;B0013;B0014;B0015;B0016;B0017;B0018;B0019;B0020;B0021;B0022;B0023;B0024;B0025;B0026;B0027;B0028;B0029;B0030;B0031;B0032;B0033;B0034;B0035;B0036;B0037;B0038;B0039;B0040;B0041;B0042;B0043;B0044;B0045;B0046;B0047;B0048;B0049;B0050;B0051;B0052;B0053;B0054;B0055;B0056;B0057;B0058;B0059;B0060;B0061;B0062;B0063;B0064;B0065;B0066;B0067;B0068;B0069;B0070;B0071;B0072;B0001;B0002;B0003;B0004;B0005;B0006;B0007;B0008;B0009;B0010;B0011;B0012;B0013;B0014;B0015;B0016;B0017;B0018;B0019;B0020;B0021;B0022;B0023;B0024;B0025;B0026;B0027;B0028;B0029;B0030;B0031;B0032;B0033;B0034;B0035;B0036;B0037;B0038;B0039;B0040;B0041;B0042;B0043;B0044;B0045;B0046;B0047;B0048;B0049;B0050;B0051;B0052;B0053;B0054;B0055;B0056;B0057;B0058;B0059;B0060;B0061;B0062;B0063;B0064;B0065;B0066;B0067;B0068;B0069;B0070;B0071;B0072,48204367,163688208,Dieser Würstelstand gilt als zeitgemäße Interpretation dieser Wiener Institution: hier werden auch Bouteillenweine und Sekt angeboten.
-        L0042,Würstelstand am Hohen Markt,B0019;B0072;B0039,48210862,16372725,Seinen Kultfaktor verdankt dieser Würstelstand seinen Öffnungszeiten bis in die frühen Morgenstunden.</div>
+        L0042,Würstelstand am Hohen Markt,B0019;B0072;B0039,48210862,16372725,Seinen Kultfaktor verdankt dieser Würstelstand seinen Öffnungszeiten bis in die frühen Morgenstunden.
+    </div>
 
 
-
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAo76SGNpJPE2iYYu-t1oXM8zmviCioXu4&callback=initMap">
+    </script>
 </body>
 
 <script src="script/util.js"></script> <!-- util functions included in the CodyHouse framework -->
