@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <title>Beer2Beer - Startseite</title>
     <meta name="description" content="Kurzbeschreibung">
+   
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.getElementsByTagName("html")[0].className += " js";</script>
+  <link rel="stylesheet" href="css/myStyle.css">
+  <meta name="description" content="Kurzbeschreibung">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"  type="text/css">
@@ -13,7 +23,106 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="script/script.js"></script>
-    
+      <script>
+      function initMap() {
+        var bounds = new google.maps.LatLngBounds;
+        var markersArray = [];
+
+        var origin1 = {lat: 48.158190, lng: 16.382078};
+        var origin2 = 'FH campous Wien, Austria';
+        var destinationA = 'Reumannplatz, Wien, Austria';
+        var destinationB = {lat: 48.2080194, lng: 16.3720473};
+
+        var destinationIcon = 'https://chart.googleapis.com/chart?' +
+            'chst=d_map_pin_letter&chld=D|FF0000|000000';
+        var originIcon = 'https://chart.googleapis.com/chart?' +
+            'chst=d_map_pin_letter&chld=O|FFFF00|000000';
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 482080194, lng: 163720473},
+          zoom: 10
+        });
+        var geocoder = new google.maps.Geocoder;
+
+        var service = new google.maps.DistanceMatrixService;
+        service.getDistanceMatrix({
+          origins: [origin1, origin2],
+          destinations: [destinationA, destinationB],
+          travelMode: 'WALKING',
+          unitSystem: google.maps.UnitSystem.METRIC, 
+          avoidHighways: false,
+          avoidTolls: false
+        }, function(response, status) {
+          if (status !== 'OK') {
+            alert('Error was: ' + status);
+          } else {
+            var originList = response.originAddresses;
+            var destinationList = response.destinationAddresses;
+            var outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = '';
+            deleteMarkers(markersArray);
+
+            var showGeocodedAddressOnMap = function(asDestination) {
+              var icon = asDestination ? destinationIcon : originIcon;
+              return function(results, status) {
+                if (status === 'OK') {
+                  map.fitBounds(bounds.extend(results[0].geometry.location));
+                  markersArray.push(new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    icon: icon
+                  }));
+                } else {
+                  alert('Geocode was not successful due to: ' + status);
+                }
+              };
+            };
+
+            for (var i = 0; i < originList.length; i++) {
+              var results = response.rows[i].elements;
+              geocoder.geocode({'address': originList[i]},
+                  showGeocodedAddressOnMap(false));
+              for (var j = 0; j < results.length; j++) {
+                geocoder.geocode({'address': destinationList[j]},
+                    showGeocodedAddressOnMap(true));
+                outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
+                    ': ' + results[j].distance.text + ' in ' +
+                    results[j].duration.text + ' Kalorien: ' + calc_calories_on_distance(results[j].duration.text) '<br>';
+              }
+            }
+          }
+        });
+      }
+
+      function deleteMarkers(markersArray) {
+        for (var i = 0; i < markersArray.length; i++) {
+          markersArray[i].setMap(null);
+        }
+        markersArray = [];
+      }
+	  
+	  function calc_calories_on_distance(person,durationHours){
+        //alert(person.age)
+        Met = 3.3;
+        
+        if(person.gender == "Male"){
+          BMR = 66 + (6.23 * lbs) + (12.7 * inches) - (6.8 * age);
+         
+          alert("calories"+BMR*Met/24 * 1);
+
+        }else{
+          if(person.gender == "Female"){
+            BMR = 655 + (4.35 *person.lbs) + (4.7 *person.inches) - (4.7 * person.age);
+            alert("calories"+BMR*Met/24 * durationHours);  
+          }
+        }
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAo76SGNpJPE2iYYu-t1oXM8zmviCioXu4&callback=initMap">
+    </script>
+	 <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAo76SGNpJPE2iYYu-t1oXM8zmviCioXu4&callback=initMap">
+    </script>
 
 </head>
 
@@ -29,6 +138,9 @@
                 <ul class="navbar-nav mr-auto">
                 </ul>
                 <span class="navbar-text">
+                    <div class="alert alert-warning" role="alert">
+                        based on distance kcal verbrauch
+                    </div>
                     <button type="button" class="btn btn-primary">
                         <i class="fa fa-cart-arrow-down"></i>
                         <a href="cart.html">beercart</a>
@@ -37,6 +149,7 @@
             </div>
         </nav>
         <form id="beerNamesForm">
+            
             <div class="row">
                 <div class="col-8">
 
@@ -44,6 +157,7 @@
                         <input type="search" class="form-control" id="beerNames" aria-describedby="beerHelp" placeholder="Auf welches Bier hast du Bock?">
                         <small id="beerHelp" class="form-text text-muted">Es sind alle Biere der Brau Union möglich.</small>
                     </div>
+                   
 
                 </div>
                 <div class="col-4">
@@ -55,21 +169,61 @@
         </form>
 
         <div class="row">
-            <div class="col-4">
+            <div class="col-4" id="output">
 
                 <ul id="listOfBars">
                     <li id="noBeer">Es muss zuerst ein Bier gewählt werden.</li>
                 </ul>
 
             </div>
-            <div class="col-8">
+            <div id="map" class="col-8">
                 <!--Map-->
             </div>
         </div>
        
     </div>
 
-
+    <main class="cd-main container margin-top-xxl">
+        <div class="text-component text-center">
+            <a href="#0" id="data_price" class="cd-add-to-cart js-cd-add-to-cart" onclick="myFunction()" data-price=""> Add your calories</a>
+        </div>
+     </main>
+      
+      <div class="cd-cart cd-cart--empty js-cd-cart">
+          <a href="#0" class="cd-cart__trigger text-replace">
+              Cart
+              <ul class="cd-cart__count"> <!-- cart items count -->
+                  <li>0</li>
+                  <li>0</li>
+              </ul> <!-- .cd-cart__count -->
+          </a>
+      
+          <div class="cd-cart__content">
+              <div class="cd-cart__layout">
+                  <header class="cd-cart__header">
+                      <h2>Cart</h2>
+                      <span class="cd-cart__undo">Item removed. <a href="#0">Undo</a></span>
+                  </header>
+                  
+                  <div class="cd-cart__body">
+                      <ul>
+                          <!-- products added to the cart will be inserted here using JavaScript -->
+                      </ul>
+                  </div>
+      
+                  <footer class="cd-cart__footer">
+                      <a href="#0" class="cd-cart__checkout">
+                      <em> kcal total: <span>0</span>
+                  <svg class="icon icon--sm" viewBox="0 0 24 24"><g fill="none" stroke="currentColor"><line stroke-width="2" stroke-linecap="round" stroke-linejoin="round" x1="3" y1="12" x2="21" y2="12"/><polyline stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="15,6 21,12 15,18 "/></g>
+                  </svg>
+                </em>
+              </a>
+                  </footer>
+              </div>
+             
+          </div> <!-- .cd-cart__content -->
+      </div> <!-- cd-cart -->
+      
 
 
     <div id="DB_Bier" style="display:none;">Bier_ID,Bier_name,Trinktemperatur,Alkohol,Kalorien_je_100ml,Stammwuerze,Beschreibung
@@ -190,8 +344,10 @@
         L0042,Würstelstand am Hohen Markt,B0019;B0072;B0039,48210862,16372725,Seinen Kultfaktor verdankt dieser Würstelstand seinen Öffnungszeiten bis in die frühen Morgenstunden.</div>
 
 
+
 </body>
 
-
+<script src="script/util.js"></script> <!-- util functions included in the CodyHouse framework -->
+<script src="script/main.js"></script> 
 
 </html>
