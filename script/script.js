@@ -42,8 +42,16 @@ function getAllBarsFromBeerName() {
         $('#listOfBars li').remove();
 
         var beerId = arrayBeer[index][0].trim();
-
         var calories = arrayBeer[index][4];
+        //console.log(calories);
+
+        var beerDetailsHtml = document.getElementById("beerDetails");
+        var trinktemperatur = arrayBeer[index][2].toString();
+        var alkohol = arrayBeer[index][3].toString();
+        var stammwuerze = arrayBeer[index][5].toString();
+        var details = "Trinktemperatur: " + trinktemperatur + ", Alkohol: " + alkohol + "%, Stammwuerze: " + stammwuerze;
+        beerDetailsHtml.innerHTML = details;
+
 
         arrayPubs.forEach(element => {
             if (element[2].toString().indexOf(beerId) > -1)
