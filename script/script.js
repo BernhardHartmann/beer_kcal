@@ -35,6 +35,8 @@ function getAllBarsFromBeerName() {
 
         
 
+
+
         $('#listOfBars li').remove();
 
         console.log(arrayPubs);
