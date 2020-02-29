@@ -3,6 +3,7 @@ $(document).ready(function () {
     getAllBarsFromBeerName();
 });
 
+
 function loadBeerNamesToAutocomplete() {
     var beerNames = ['ARGENTINA',
         'AUSTRALIA',
@@ -29,9 +30,31 @@ function getAllBarsFromBeerName() {
     $("#searchButton").click(function (event) {
         var beerName = $("#beerNames").val();
 
+        var barsArray = ['ARGENTINA',
+            'AUSTRALIA',
+            'BRAZIL',
+            'BELARUS',
+            'BHUTAN',
+            'CHILE',
+            'CAMBODIA',
+            'CANADA',
+            'DENMARK',
+            'DOMINICA',
+            'INDIA'];
+
+        var foundBars;
+
+        $('#listOfBars li').remove();
+        
+        barsArray.forEach(element => {
+            $("#listOfBars").append('<li>' + element + '</li>');
+        });
+
         return beerName;
           
         event.preventDefault();
     });
 }
+
+
 
