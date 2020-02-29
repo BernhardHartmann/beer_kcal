@@ -23,6 +23,12 @@
 
         var person = {weight:weight, height:height, age:age, gender:malefemale,lbs:lbs,inches:inches}; 
 
+        if(weight != "" && height != "" && malefemale != "" && age != "" && lbs != "" && inches != ""){
+          //verweis
+        }else{
+
+        }
+
         //calc_calories_on_distance(person);
 
       }
@@ -54,7 +60,7 @@
 
   <div class="form-group">
     <label for="malefemale">Gender</label>
-    <select id="malefemale" class="form-control">
+    <select id="malefemale" class="form-control" required>
       <option selected>choose your gender</option>
       <option>Male</option>
       <option>Female</option>
@@ -63,16 +69,16 @@
 
   <div class="form-group">
     <label for="inputAge">Enter age</label>
-    <input type="number" class="form-control" id="age" aria-describedby="age" placeholder="Enter age">
+    <input type="number" class="form-control" id="age" aria-describedby="age" placeholder="Enter age" required>
   </div>
 
     <div class="form-group">
       <label for="inputWeight">Enter weight</label>
-      <input type="number" class="form-control" id="weight" aria-describedby="weight" placeholder="Enter weight">
+      <input type="number" class="form-control" id="weight" aria-describedby="weight" placeholder="Enter weight" required>
     </div>
     <div class="form-group">
       <label for="inputHeight">Enter height</label>
-      <input type="number" class="form-control" id="height" placeholder="Enter height">
+      <input type="number" class="form-control" id="height" placeholder="Enter height" required>
     </div>
    
     <button type="submit" class="btn btn-primary" onclick="checkInput()">Check data</button>
