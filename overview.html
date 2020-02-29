@@ -30,6 +30,9 @@
         }
 
       function initMap() {
+        person = localStorage.getItem('person');
+        console.log('person: ', JSON.parse(person));
+
         var bounds = new google.maps.LatLngBounds;
         var markersArray = [];
 
@@ -153,7 +156,7 @@
 
                     <div class="form-group">
                         <input type="search" class="form-control" id="beerNames" aria-describedby="beerHelp" placeholder="Auf welches Bier hast du Bock?">
-                        <small id="beerHelp" class="form-text text-muted">Es sind alle Biere der Brau Union möglich.</small>
+                        <small id="beerHelp" class="form-text text-muted">All beers from the Brau Union are available.</small>
                     </div>
                    
 
