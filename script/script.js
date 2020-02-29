@@ -30,8 +30,6 @@ function getAllBarsFromBeerName() {
         arrayPubs.shift();
         arrayPubs.pop();
 
-        console.log(arrayPubs);
-
         var arrayBeerNames = localStorage.getItem("arrayBeerNames").split(",");
 
         var beerName = $("#beerNames").val();
@@ -62,8 +60,8 @@ function getAllBarsFromBeerName() {
             if (element[2].toString().indexOf(beerId) > -1) {
 
                 var dest = new Object();
-                dest.lat = element[3];
-                dest.lng = element[4];
+                dest.lat = parseFloat(element[3]);
+                dest.lng = parseFloat(element[4]);
 
                 destinations.push(dest);
 

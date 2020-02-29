@@ -51,14 +51,14 @@
         });
         var geocoder = new google.maps.Geocoder;
 
-        var destinations = JSON.parse(localStorage.getItem("destinations"));
+          var destinations = JSON.parse(localStorage.getItem("destinations"));
 
-        console.log(destinations);
+          console.log(destinations);
 
         var service = new google.maps.DistanceMatrixService;
         service.getDistanceMatrix({
-          origins: [origin2],
-          destinations: destinations,
+        origins: [origin2],
+        destinations: destinations,
           travelMode: 'WALKING',
           unitSystem: google.maps.UnitSystem.METRIC, 
           avoidHighways: false,
