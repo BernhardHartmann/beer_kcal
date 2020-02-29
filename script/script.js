@@ -28,6 +28,7 @@ function getAllBarsFromBeerName() {
         var arrayPubs = parseCSVinArray(localStorage.getItem("arrayPubs"));
         arrayPubs.shift();
         arrayPubs.shift();
+        arrayPubs.pop();
 
         var arrayBeerNames = localStorage.getItem("arrayBeerNames").split(",");
 
@@ -49,14 +50,26 @@ function getAllBarsFromBeerName() {
         var trinktemperatur = arrayBeer[index][2].toString();
         var alkohol = arrayBeer[index][3].toString();
         var stammwuerze = arrayBeer[index][5].toString();
-        var details = "Trinktemperatur: " + trinktemperatur + ", Alkohol: " + alkohol + "%, Stammwuerze: " + stammwuerze;
+        var details = "Beer-Details: Trinktemperatur: " + trinktemperatur + ", Alkohol: " + alkohol + "%, Stammwuerze: " + stammwuerze;
         beerDetailsHtml.innerHTML = details;
 
 
-        arrayPubs.forEach(element => {
-            if (element[2].toString().indexOf(beerId) > -1)
+        var destinations = [];
 
-            $("#listOfBars").append('<li>' + element[1] + '</li>');
+        arrayPubs.forEach(element => {
+            if (element[2].toString().indexOf(beerId) > -1) {
+
+                var dest = new Object();
+                dest.lat = parseFloat(element[3]);
+                dest.lng = parseFloat(element[4]);
+
+                destinations.push(dest);
+
+                $("#listOfBars").append('<li>' + element[1] + '</li>');
+
+            }
+
+            localStorage.setItem("destinations", JSON.stringify(destinations));
         });
 
         return beerName;
