@@ -4,141 +4,153 @@
     <meta charset="UTF-8">
     <title>Beer2Beer - Startseite</title>
     <meta name="description" content="Kurzbeschreibung">
-   
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script>document.getElementsByTagName("html")[0].className += " js";</script>
-  <link rel="stylesheet" href="css/myStyle.css">
-  <meta name="description" content="Kurzbeschreibung">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>document.getElementsByTagName("html")[0].className += " js";</script>
+    <link rel="stylesheet" href="css/myStyle.css">
+    <meta name="description" content="Kurzbeschreibung">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"  type="text/css">
-    <link rel="stylesheet" href="css/style.css"  type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="script/script.js"></script>
-      <script>
+    <script>
 
-        function myFunction(){
-          //document.getElementById("beer").value
-          alert( localStorage.getItem("cal"));
+        function myFunction() {
+            //document.getElementById("beer").value
+            //alert(localStorage.getItem("cal"));
             abcd = document.getElementById("data_price").setAttribute("data-price", localStorage.getItem("cal"));
 
         }
 
-      function initMap() {
-        person = localStorage.getItem('person');
-        console.log('person: ', JSON.parse(person));
+        function initMap() {
+            person = localStorage.getItem('person');
+            console.log('person: ', JSON.parse(person));
 
-        var bounds = new google.maps.LatLngBounds;
-        var markersArray = [];
+            var bounds = new google.maps.LatLngBounds;
+            var markersArray = [];
 
-        //var origin1 = {lat: 48.158190, lng: 16.382078};
-        var origin2 = 'FH campous Wien, Austria';
-        //var destinationA = 'Reumannplatz, Wien, Austria';
-        //var destinationB = {lat: 48.2080194, lng: 16.3720473};
+            //var origin1 = {lat: 48.158190, lng: 16.382078};
+            var origin2 = 'FH campous Wien, Austria';
+            //var destinationA = 'Reumannplatz, Wien, Austria';
+            //var destinationB = {lat: 48.2080194, lng: 16.3720473};
 
-        var destinationIcon = 'https://chart.googleapis.com/chart?' +
-            'chst=d_map_pin_letter&chld=D|FF0000|000000';
-        var originIcon = 'https://chart.googleapis.com/chart?' +
-            'chst=d_map_pin_letter&chld=O|FFFF00|000000';
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 482080194, lng: 163720473},
-          zoom: 10
-        });
-        var geocoder = new google.maps.Geocoder;
+            var destinationIcon = 'https://chart.googleapis.com/chart?' +
+                'chst=d_map_pin_letter&chld=D|FF0000|000000';
+            var originIcon = 'https://chart.googleapis.com/chart?' +
+                'chst=d_map_pin_letter&chld=O|FFFF00|000000';
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 482080194, lng: 163720473 },
+                zoom: 10
+            });
+            var geocoder = new google.maps.Geocoder;
 
-          var destinations = JSON.parse(localStorage.getItem("destinations"));
+            var destinations = JSON.parse(localStorage.getItem("destinations"));
 
-          console.log(destinations);
+            console.log(destinations);
 
-        var service = new google.maps.DistanceMatrixService;
-        service.getDistanceMatrix({
-        origins: [origin2],
-        destinations: destinations,
-          travelMode: 'WALKING',
-          unitSystem: google.maps.UnitSystem.METRIC, 
-          avoidHighways: false,
-          avoidTolls: false
-        }, function(response, status) {
-          if (status !== 'OK') {
-            alert('Error was: ' + status);
-          } else {
-            var originList = response.originAddresses;
-            var destinationList = response.destinationAddresses;
-            var outputDiv = document.getElementById('output');
-            outputDiv.innerHTML = '';
-            deleteMarkers(markersArray);
-
-            var showGeocodedAddressOnMap = function(asDestination) {
-              var icon = asDestination ? destinationIcon : originIcon;
-              return function(results, status) {
-                if (status === 'OK') {
-                  map.fitBounds(bounds.extend(results[0].geometry.location));
-                  markersArray.push(new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location,
-                    icon: icon
-                  }));
+            var service = new google.maps.DistanceMatrixService;
+            service.getDistanceMatrix({
+                origins: [origin2],
+                destinations: destinations,
+                travelMode: 'WALKING',
+                unitSystem: google.maps.UnitSystem.METRIC,
+                avoidHighways: false,
+                avoidTolls: false
+            }, function (response, status) {
+                if (status !== 'OK') {
+                    alert('Error was: ' + status);
                 } else {
-                  alert('Geocode was not successful due to: ' + status);
+                    var originList = response.originAddresses;
+                    var destinationList = response.destinationAddresses;
+                    var outputDiv = document.getElementById('output');
+                    outputDiv.innerHTML = '';
+                    deleteMarkers(markersArray);
+
+                    var showGeocodedAddressOnMap = function (asDestination) {
+                        var icon = asDestination ? destinationIcon : originIcon;
+                        return function (results, status) {
+                            if (status === 'OK') {
+                                map.fitBounds(bounds.extend(results[0].geometry.location));
+                                markersArray.push(new google.maps.Marker({
+                                    map: map,
+                                    position: results[0].geometry.location,
+                                    icon: icon
+                                }));
+                            } else {
+                                alert('Geocode was not successful due to: ' + status);
+                            }
+                        };
+                    };
+
+                    for (var i = 0; i < originList.length; i++) {
+                        var results = response.rows[i].elements;
+                        geocoder.geocode({ 'address': originList[i] },
+                            showGeocodedAddressOnMap(false));
+                        for (var j = 0; j < results.length; j++) {
+
+                            geocoder.geocode({ 'address': destinationList[j] },
+                                showGeocodedAddressOnMap(true));
+                            outputDiv.innerHTML += "";
+
+                            calc_calories_on_distance(person, parseInt(results[j].duration.value)) + '<br>';
+                        }
+                    }
                 }
-              };
-            };
+            });
+        }
 
-            for (var i = 0; i < originList.length; i++) {
-              var results = response.rows[i].elements;
-              geocoder.geocode({'address': originList[i]},
-                  showGeocodedAddressOnMap(false));
-              for (var j = 0; j < results.length; j++) {
-
-                geocoder.geocode({'address': destinationList[j]},
-                    showGeocodedAddressOnMap(true));
-                outputDiv.innerHTML +="";
-                
-                calc_calories_on_distance(person, parseInt(results[j].duration.value)) +  '<br>';
-              }
+        function deleteMarkers(markersArray) {
+            for (var i = 0; i < markersArray.length; i++) {
+                markersArray[i].setMap(null);
             }
-          }
-        });
-      }
-
-      function deleteMarkers(markersArray) {
-        for (var i = 0; i < markersArray.length; i++) {
-          markersArray[i].setMap(null);
+            markersArray = [];
         }
-        markersArray = [];
-      }
-	  
-	  function calc_calories_on_distance(person,durationSecs){
-        //alert(person.age)
-        durationHours = durationSecs*0.000277778;
-        //alert(durationHours);
-        Met = 3.3;
 
-        var obj = JSON.parse(person);
-        //alert(obj.age)
+        function calc_calories_on_distance(person, durationSecs) {
+            //alert(person.age)
+            durationHours = durationSecs * 0.000277778;
+            //alert(durationHours);
+            Met = 3.3;
 
-        
-        if(obj.gender == "Male"){
-          BMR = 66 + (6.23 * obj.lbs) + (12.7 * obj.inches) - (6.8 * obj.age);
-         document.getElementById("kcal").innerHTML += "calories male"+BMR*Met/24 * durationHours;
-        //  alert("calories male"+BMR*Met/24 * 1);
+            var obj = JSON.parse(person);
+            //alert(obj.age)
 
-        }else{
-          if(obj.gender == "Female"){
-            BMR = 655 + (4.35 *obj.lbs) + (4.7 *obj.inches) - (4.7 * obj.age);
-            document.getElementById("kcal").innerHTML += BMR*Met/24 * durationHours;
-            //alert("calories "+BMR*Met/24 * durationHours);  
-          }
+
+            if (obj.gender == "Male") {
+                BMR = 66 + (6.23 * obj.lbs) + (12.7 * obj.inches) - (6.8 * obj.age);
+                document.getElementById("kcal").innerHTML += "calories male" + BMR * Met / 24 * durationHours;
+                //  alert("calories male"+BMR*Met/24 * 1);
+
+            } else {
+                if (obj.gender == "Female") {
+                    BMR = 655 + (4.35 * obj.lbs) + (4.7 * obj.inches) - (4.7 * obj.age);
+                    document.getElementById("kcal").innerHTML += BMR * Met / 24 * durationHours;
+                    //alert("calories "+BMR*Met/24 * durationHours);
+                }
+            }
         }
-      }
+
+    $("#searchButton").click(function (event) {
+
+        initMap();
+          
+        event.preventDefault();
+    });
+
+    </script>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAo76SGNpJPE2iYYu-t1oXM8zmviCioXu4&callback=initMap">
     </script>
 
 </head>
@@ -364,10 +376,6 @@
         </div>
 
 
-
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAo76SGNpJPE2iYYu-t1oXM8zmviCioXu4&callback=initMap">
-    </script>
 </body>
 
 <script src="script/util.js"></script> <!-- util functions included in the CodyHouse framework -->
