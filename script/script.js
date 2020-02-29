@@ -33,6 +33,8 @@ function getAllBarsFromBeerName() {
 
         var index = arrayBeerNames.findIndex(x => x === beerName);
 
+        
+
         $('#listOfBars li').remove();
 
         console.log(arrayPubs);
@@ -75,13 +77,15 @@ function parseCSVinArray(stringCSV) {
     for (i = 0; i < CSVinArray.length; i++) {
         subArray = CSVinArray[i].split(",");
         CSVinArray[i] = subArray;
-        var subArrayAsString = subArray.toString();
-        if (subArrayAsString.indexOf(";") > 0) {
+        //var subArrayAsString = subArray.toString();
+        /*if (subArrayAsString.indexOf(";") > 0) {
             for (k = 0; k < CSVinArray[i].length; k++) {
-                subsubArray = CSVinArray[i][k].split(";");
-                CSVinArray[i][k] = subsubArray;
+                if (CSVinArray[i][k].indexOf(";")){
+                    subsubArray = CSVinArray[i][k].toString().split(";");
+                    CSVinArray[i][k] = subsubArray
+                }
             }
-        }
+        }*/
     }
 
     return CSVinArray;
