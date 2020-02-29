@@ -50,7 +50,7 @@ function getAllBarsFromBeerName() {
         var trinktemperatur = arrayBeer[index][2].toString();
         var alkohol = arrayBeer[index][3].toString();
         var stammwuerze = arrayBeer[index][5].toString();
-        var details = "Trinktemperatur: " + trinktemperatur + ", Alkohol: " + alkohol + "%, Stammwuerze: " + stammwuerze;
+        var details = "Beer-Details: Trinktemperatur: " + trinktemperatur + ", Alkohol: " + alkohol + "%, Stammwuerze: " + stammwuerze;
         beerDetailsHtml.innerHTML = details;
 
 
