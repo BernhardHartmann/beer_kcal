@@ -22,16 +22,22 @@ function getAllBarsFromBeerName() {
     $("#searchButton").click(function (event) {
 
         var arrayBeer = parseCSVinArray(localStorage.getItem("arrayBeer"));
+
         var arrayPubs = parseCSVinArray(localStorage.getItem("arrayPubs"));
+        arrayPubs.shift();
+        arrayPubs.shift();
+
         var arrayBeerNames = localStorage.getItem("arrayBeerNames").split(",");
 
         var beerName = $("#beerNames").val();
 
         var index = arrayBeerNames.findIndex(x => x === beerName);
 
+        
+
         $('#listOfBars li').remove();
 
-        console.log(arrayBeer);
+        console.log(arrayPubs);
 
         arrayPubs.forEach(element => {
             $("#listOfBars").append('<li>' + element + '</li>');
@@ -71,14 +77,17 @@ function parseCSVinArray(stringCSV) {
     for (i = 0; i < CSVinArray.length; i++) {
         subArray = CSVinArray[i].split(",");
         CSVinArray[i] = subArray;
-        var subArrayAsString = subArray.toString();
-        if (subArrayAsString.indexOf(";") > 0) {
+        //var subArrayAsString = subArray.toString();
+        /*if (subArrayAsString.indexOf(";") > 0) {
             for (k = 0; k < CSVinArray[i].length; k++) {
-                subsubArray = CSVinArray[i][k].split(";");
-                CSVinArray[i][k] = subsubArray
+                if (CSVinArray[i][k].indexOf(";")){
+                    subsubArray = CSVinArray[i][k].toString().split(";");
+                    CSVinArray[i][k] = subsubArray
+                }
             }
-        }
+        }*/
     }
+
     return CSVinArray;
 }
 
