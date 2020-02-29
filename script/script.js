@@ -69,6 +69,7 @@ function getAllBarsFromBeerName() {
 
             }
 
+            localStorage.setItem("destinations", undefined);
             localStorage.setItem("destinations", JSON.stringify(destinations));
         });
 
