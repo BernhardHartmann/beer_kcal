@@ -33,6 +33,8 @@ function getAllBarsFromBeerName() {
 
         var index = arrayBeerNames.findIndex(x => x === beerName);
 
+        
+
         $('#listOfBars li').remove();
 
         console.log(arrayPubs);
