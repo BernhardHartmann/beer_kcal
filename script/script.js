@@ -22,6 +22,8 @@ function getAllBarsFromBeerName() {
     $("#searchButton").click(function (event) {
 
         var arrayBeer = parseCSVinArray(localStorage.getItem("arrayBeer"));
+        arrayBeer.shift();
+        arrayBeer.shift();
 
         var arrayPubs = parseCSVinArray(localStorage.getItem("arrayPubs"));
         arrayPubs.shift();
@@ -35,12 +37,18 @@ function getAllBarsFromBeerName() {
 
         
 
+
+
         $('#listOfBars li').remove();
 
-        console.log(arrayPubs);
+        var beerId = arrayBeer[index][0].trim();
+
+        var calories = arrayBeer[index][4];
 
         arrayPubs.forEach(element => {
-            $("#listOfBars").append('<li>' + element + '</li>');
+            if (element[2].toString().indexOf(beerId) > -1)
+
+            $("#listOfBars").append('<li>' + element[1] + '</li>');
         });
 
         return beerName;
