@@ -23,11 +23,106 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="script/script.js"></script>
-    <script>
-        function myFunction(){
-            abcd = document.getElementById("data_price").setAttribute("data-price",document.getElementById("beer").value);
+      <script>
+      function initMap() {
+        var bounds = new google.maps.LatLngBounds;
+        var markersArray = [];
+
+        var origin1 = {lat: 48.158190, lng: 16.382078};
+        var origin2 = 'FH campous Wien, Austria';
+        var destinationA = 'Reumannplatz, Wien, Austria';
+        var destinationB = {lat: 48.2080194, lng: 16.3720473};
+
+        var destinationIcon = 'https://chart.googleapis.com/chart?' +
+            'chst=d_map_pin_letter&chld=D|FF0000|000000';
+        var originIcon = 'https://chart.googleapis.com/chart?' +
+            'chst=d_map_pin_letter&chld=O|FFFF00|000000';
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 482080194, lng: 163720473},
+          zoom: 10
+        });
+        var geocoder = new google.maps.Geocoder;
+
+        var service = new google.maps.DistanceMatrixService;
+        service.getDistanceMatrix({
+          origins: [origin1, origin2],
+          destinations: [destinationA, destinationB],
+          travelMode: 'WALKING',
+          unitSystem: google.maps.UnitSystem.METRIC,
+          avoidHighways: false,
+          avoidTolls: false
+        }, function(response, status) {
+          if (status !== 'OK') {
+            alert('Error was: ' + status);
+          } else {
+            var originList = response.originAddresses;
+            var destinationList = response.destinationAddresses;
+            var outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = '';
+            deleteMarkers(markersArray);
+
+            var showGeocodedAddressOnMap = function(asDestination) {
+              var icon = asDestination ? destinationIcon : originIcon;
+              return function(results, status) {
+                if (status === 'OK') {
+                  map.fitBounds(bounds.extend(results[0].geometry.location));
+                  markersArray.push(new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    icon: icon
+                  }));
+                } else {
+                  alert('Geocode was not successful due to: ' + status);
+                }
+              };
+            };
+
+            for (var i = 0; i < originList.length; i++) {
+              var results = response.rows[i].elements;
+              geocoder.geocode({'address': originList[i]},
+                  showGeocodedAddressOnMap(false));
+              for (var j = 0; j < results.length; j++) {
+                geocoder.geocode({'address': destinationList[j]},
+                    showGeocodedAddressOnMap(true));
+                outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
+                    ': ' + results[j].distance.text + ' in ' +
+                    results[j].duration.text + '  ' + calc_calories_on_distance(results[j].duration.text) '<br>';
+              }
+            }
+          }
+        });
+      }
+
+      function deleteMarkers(markersArray) {
+        for (var i = 0; i < markersArray.length; i++) {
+          markersArray[i].setMap(null);
         }
-  </script>
+        markersArray = [];
+      }
+	  
+	  function calc_calories_on_distance(person,durationHours){
+        //alert(person.age)
+        Met = 3.3;
+        
+        if(person.gender == "Male"){
+          BMR = 66 + (6.23 * lbs) + (12.7 * inches) - (6.8 * age);
+         
+          alert("calories"+BMR*Met/24 * 1);
+
+        }else{
+          if(person.gender == "Female"){
+            BMR = 655 + (4.35 *person.lbs) + (4.7 *person.inches) - (4.7 * person.age);
+            alert("calories"+BMR*Met/24 * durationHours);  
+          }
+        }
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAo76SGNpJPE2iYYu-t1oXM8zmviCioXu4&callback=initMap">
+    </script>
+	 <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAo76SGNpJPE2iYYu-t1oXM8zmviCioXu4&callback=initMap">
+    </script>
 
 </head>
 
@@ -74,14 +169,14 @@
         </form>
 
         <div class="row">
-            <div class="col-4">
+            <div class="col-4" id="output">
 
                 <ul id="listOfBars">
                     <li id="noBeer">Es muss zuerst ein Bier gewählt werden.</li>
                 </ul>
 
             </div>
-            <div class="col-8">
+            <div id="map" class="col-8">
                 <!--Map-->
             </div>
         </div>
