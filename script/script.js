@@ -79,7 +79,7 @@ function parseCSVinArray(stringCSV) {
         if (subArrayAsString.indexOf(";") > 0) {
             for (k = 0; k < CSVinArray[i].length; k++) {
                 subsubArray = CSVinArray[i][k].split(";");
-                CSVinArray[i][k] = subsubArray
+                CSVinArray[i][k] = subsubArray;
             }
         }
     }
