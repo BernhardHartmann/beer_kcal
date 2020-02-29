@@ -26,7 +26,10 @@
       <script>
 
         function myFunction(){
-            abcd = document.getElementById("data_price").setAttribute("data-price",document.getElementById("beer").value);
+          //document.getElementById("beer").value
+          alert( localStorage.getItem("cal"));
+            abcd = document.getElementById("data_price").setAttribute("data-price", localStorage.getItem("cal"));
+
         }
 
       function initMap() {
