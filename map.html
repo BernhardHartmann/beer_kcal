@@ -1,70 +1,78 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <style>
-      /* Set the size of the div element that contains the map */
-      #map {
-        height: 400px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-       }
-    </style>
-  </head>
-  <body>
-    <h3>App Maps Demo</h3>
-    <!--The div element for the map -->
-    <div id="map"></div>
-    <script>
-// Initialize and add the map
-function initMap() {
-  var markers = [
-      [48.2065731, 16.3705892],
-      [48.207, 16.3706],
-    ];
-  var marker, loc;
-  var map = new google.maps.Map(document.getElementById('map'), {
-  center: {lat: 48.2082, lng: 16.3738},
-  zoom: 14});
-  for(i=0;i < markers.length; i++){
-  		loc = new google.maps.LatLng(markers[i][0], markers[i][1]);
-		  marker = new google.maps.Marker({
-        position: loc,
-        map: map
+
+<head>
+  <style>
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+  </style>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=APIKEY&callback=initMap"
+    type="text/javascript">
+    </script>
+
+</head>
+
+<body>
+  <h3>App Maps Demo</h3>
+  <div id="map"></div>
+  <p id="text">hello</p>
+  <script>
+    function initMap() {
+      var markers = [
+        [48.2065731, 16.3705892],
+        [48.207, 16.3706],
+      ];
+      var marker, loc;
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 48.2082, lng: 16.3738 },
+        zoom: 14
       });
-  }
-}
-
-function calcDist (end) {
-  var start = new google.maps.LatLng(48.158030, 16.382370);
-  service.getDistanceMatrix(
-  {
-    origins: [start],
-    destinations: [end],
-    travelMode: 'WALKING',
-    unitSystem: 'METRIC',
-  }, callback);
-  }
-
- 
- function callback(response, status) {
-   if (status == 'OK') {
-    var origins = response.originAddresses;
-    var destinations = response.destinationAddresses;
-
-    for (var i = 0; i < origins.length; i++) {
-      var results = response.rows[i].elements;
-      for (var j = 0; j < results.length; j++) {
-        var element = results[j];
-        var distance = element.distance.value;
-        var duration = element.duration.value;
-		//TODO: calculate_calorie_burned(distance, duration)
+      for (i = 0; i < markers.length; i++) {
+        loc = new google.maps.LatLng(markers[i][0], markers[i][1]);
+        marker = new google.maps.Marker({
+          position: loc,
+          map: map
+        });
+        calculateDistance(loc)
       }
     }
-  }
-}
 
-    </script>
-    <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALXm3BNE1HkKfvvHiLmDFOyiqDCQaNQNA&callback=initMap">
-		</script>
-  </body>
+    function calculateDistance(end) {
+      var service = new google.maps.DistanceMatrixService();
+      var fh_start = new google.maps.LatLng(48.158030, 16.382370);
+      var t_end = new google.maps.LatLng(48.207, 16.3706);
+      document.getElementById('text').innerHTML = "distance";
+      service.getDistanceMatrix(
+        {
+          origins: [fh_start],
+          destinations: [end],
+          travelMode: 'DRIVING',
+          unitSystem: google.maps.UnitSystem.METRIC,
+        }, callback);
+
+
+      function callback(response, status) {
+        document.getElementById('text').innerHTML = status;
+        if (status == 'OK') {
+          var origins = response.originAddresses;
+          var destinations = response.destinationAddresses;
+
+          for (var i = 0; i < origins.length; i++) {
+            var results = response.rows[i].elements;
+            for (var j = 0; j < results.length; j++) {
+              var element = results[j];
+              var distance = element.distance.value;
+              var duration = element.duration.value;
+            }
+          }
+        }
+      }
+    }
+
+  </script>
+</body>
+
 </html>
