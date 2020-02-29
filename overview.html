@@ -24,6 +24,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="script/script.js"></script>
       <script>
+
+        function myFunction(){
+            abcd = document.getElementById("data_price").setAttribute("data-price",document.getElementById("beer").value);
+    
+        }
+
       function initMap() {
         var bounds = new google.maps.LatLngBounds;
         var markersArray = [];
@@ -86,7 +92,7 @@
                     showGeocodedAddressOnMap(true));
                 outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
                     ': ' + results[j].distance.text + ' in ' +
-                    results[j].duration.text + ' Kalorien: ' + calc_calories_on_distance(results[j].duration.text) '<br>';
+                    results[j].duration.text + ' Kalorien: ' + calc_calories_on_distance(results[j].duration.text);
               }
             }
           }
