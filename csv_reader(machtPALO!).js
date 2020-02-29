@@ -7,16 +7,16 @@ function functionTest(){
     alert(csv_string);
 
     var arrayBeer = parseCSVinArray(csv_string);
-    alert(arrayBeer[0][0]);
-    alert(arrayBeer[1][1]);
-    alert(arrayBeer[2][1]);
+    //alert(arrayBeer[0][0]);
+    //alert(arrayBeer[1][1]);
+    //alert(arrayBeer[2][1]);
 
     var csv_stringPubs = document.getElementById("DB_Lokale").innerHTML;
     var arrayPubs = parseCSVinArray(csv_stringPubs);
-    alert(arrayPubs[0][2]);
-    alert(arrayPubs[5][2][1]);
-    alert(arrayPubs[5][2][2]);
-    alert(arrayPubs[5][2].length);
+    //alert(arrayPubs[0][2]);
+    //alert(arrayPubs[5][2][1]);
+    //alert(arrayPubs[5][2][2]);
+    //alert(arrayPubs[5][2].length);
 
     console.log(arrayPubs);
 
@@ -24,7 +24,6 @@ function functionTest(){
 }
 
 function getBeerList(){
-    var arr
 
 }
 
