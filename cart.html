@@ -1,47 +1,84 @@
-<!DOCTYPE html>
-<html lang="de">
+<!doctype html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Beer 2 Beer cart</title>
-	<meta name="description" content="Kurzbeschreibung">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.getElementsByTagName("html")[0].className += " js";</script>
+  <link rel="stylesheet" href="css/myStyle.css">
+  <meta name="description" content="Kurzbeschreibung">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-    <script>
-        kcal = 0;
-      function addtocart() {
-        
-        beer_kcal = document.getElementById("beer_kcal").value;
-        kcal += beer_kcal;
-
-        alert(kcal);
-
-      }
-
-      </script>
-
-
+  <script>
+        function myFunction(){
+            abcd = document.getElementById("data_price").setAttribute("data-price",document.getElementById("beer").value);
+    
+        }
+    
+  </script>
+  <title>Add to BeerCart</title>
 </head>
-
 <body>
 
-<form>
-
-  <div class="form-group">
-    <label for="beer_kcal">Biersorts</label>
-    <select id="beer_kcal" class="form-control" required>
-      <option selected>choose your calories</option>
-      <option value="200">Otterkringer</option>
-      <option value="300">Wieselburger</option>
-    </select>
+<main class="cd-main container margin-top-xxl">
+  <div class="text-component text-center">
+    <h1>Add Beer Calories</h1>
+  </br>
+</br>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <p class="flex flex-wrap flex-center flex-gap-xxs">
+                    <select id="beer" class="form-control" required>
+                        <option value="200">Wieselburger</option>
+                        <option value="400">16er Blech</option>
+                    </select>
+            </div>
+            <div class="col-sm-8">
+                <a href="#0" id="data_price" class="cd-add-to-cart js-cd-add-to-cart" onclick="myFunction()" data-price=""> Add your calories</a>
+                </p>
+            </div>
+        </div>
+    </div>
   </div>
+</main>
 
-    <button type="submit" class="btn btn-primary" onclick="addtocart()">Add to cart</button>
-  </form>
+<div class="cd-cart cd-cart--empty js-cd-cart">
+	<a href="#0" class="cd-cart__trigger text-replace">
+		Cart
+		<ul class="cd-cart__count"> <!-- cart items count -->
+			<li>0</li>
+			<li>0</li>
+		</ul> <!-- .cd-cart__count -->
+	</a>
 
-  <p id="output"></p>
+	<div class="cd-cart__content">
+		<div class="cd-cart__layout">
+			<header class="cd-cart__header">
+				<h2>Cart</h2>
+				<span class="cd-cart__undo">Item removed. <a href="#0">Undo</a></span>
+			</header>
+			
+			<div class="cd-cart__body">
+				<ul>
+					<!-- products added to the cart will be inserted here using JavaScript -->
+				</ul>
+			</div>
 
+			<footer class="cd-cart__footer">
+				<a href="#0" class="cd-cart__checkout">
+                <em> kcal total: <span>0</span>
+            <svg class="icon icon--sm" viewBox="0 0 24 24"><g fill="none" stroke="currentColor"><line stroke-width="2" stroke-linecap="round" stroke-linejoin="round" x1="3" y1="12" x2="21" y2="12"/><polyline stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="15,6 21,12 15,18 "/></g>
+            </svg>
+          </em>
+        </a>
+			</footer>
+		</div>
+	</div> <!-- .cd-cart__content -->
+</div> <!-- cd-cart -->
+<script src="script/util.js"></script> <!-- util functions included in the CodyHouse framework -->
+<script src="script/main.js"></script> 
 </body>
 </html>
