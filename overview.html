@@ -48,7 +48,7 @@
           origins: [origin1, origin2],
           destinations: [destinationA, destinationB],
           travelMode: 'WALKING',
-          unitSystem: google.maps.UnitSystem.METRIC,
+          unitSystem: google.maps.UnitSystem.METRIC, 
           avoidHighways: false,
           avoidTolls: false
         }, function(response, status) {
@@ -86,7 +86,7 @@
                     showGeocodedAddressOnMap(true));
                 outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
                     ': ' + results[j].distance.text + ' in ' +
-                    results[j].duration.text + '  ' + calc_calories_on_distance(results[j].duration.text) '<br>';
+                    results[j].duration.text + ' Kalorien: ' + calc_calories_on_distance(results[j].duration.text) '<br>';
               }
             }
           }
