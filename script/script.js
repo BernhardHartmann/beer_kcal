@@ -36,10 +36,6 @@ function getAllBarsFromBeerName() {
 
         var index = arrayBeerNames.findIndex(x => x === beerName);
 
-        
-
-
-
         $('#listOfBars li').remove();
 
         var beerId = arrayBeer[index][0].trim();
@@ -48,15 +44,12 @@ function getAllBarsFromBeerName() {
         localStorage.setItem("cal", calories);
         localStorage.setItem("beerName", beerName)
 
-        //console.log(calories);
-
         var beerDetailsHtml = document.getElementById("beerDetails");
         var trinktemperatur = arrayBeer[index][2].toString();
         var alkohol = arrayBeer[index][3].toString();
         var stammwuerze = arrayBeer[index][5].toString();
         var details = "Beer-Details: Trinktemperatur: " + trinktemperatur + ", Alkohol: " + alkohol + "%, Stammwuerze: " + stammwuerze;
         beerDetailsHtml.innerHTML = details;
-
 
         var destinations = [];
 
@@ -66,9 +59,7 @@ function getAllBarsFromBeerName() {
                 var dest = new Object();
                 dest.lat = parseFloat(element[3]);
                 dest.lng = parseFloat(element[4]);
-
                 destinations.push(dest);
-
                 $("#listOfBars").append('<li>' + element[1] + '</li>');
 
             }
@@ -111,15 +102,6 @@ function parseCSVinArray(stringCSV) {
     for (i = 0; i < CSVinArray.length; i++) {
         subArray = CSVinArray[i].split(",");
         CSVinArray[i] = subArray;
-        //var subArrayAsString = subArray.toString();
-        /*if (subArrayAsString.indexOf(";") > 0) {
-            for (k = 0; k < CSVinArray[i].length; k++) {
-                if (CSVinArray[i][k].indexOf(";")){
-                    subsubArray = CSVinArray[i][k].toString().split(";");
-                    CSVinArray[i][k] = subsubArray
-                }
-            }
-        }*/
     }
 
     return CSVinArray;
@@ -134,14 +116,9 @@ function setPriceForCart() {
 }
 
 function calc_calories_on_distance(person, durationSecs) {
-    //alert(person.age)
-    durationHours = durationSecs / 60 / 60;
-    //alert(durationHours);
+    durationHours = durationSecs / 3600;    
     Met = 3.3;
-
     var obj = JSON.parse(person);
-    //alert(obj.age)
-
 
     if (obj.gender == "Male") {
         BMR = 66 + (6.23 * obj.lbs) + (12.7 * obj.inches) - (6.8 * obj.age);
@@ -219,15 +196,15 @@ function initMap() {
                 var results = response.rows[i].elements;
                 geocoder.geocode({ 'address': originList[i] },
                     showGeocodedAddressOnMap(false));
-                for (var j = 0; j < results.length; j++) {
-
+                for (var j = 0; j < 2; j++) {
+                    //results.length
                     geocoder.geocode({ 'address': destinationList[j] },
                         showGeocodedAddressOnMap(true));
                     outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
                         ': ' + results[j].distance.text + ' in ' +
                         results[j].duration.text + '<br>';
-
-                        calc_calories_on_distance(person, parseInt(results[j].duration.text)) +  '<br>';
+                        console.log(results[j].duration.value);
+                        calc_calories_on_distance(person, parseInt(results[j].duration.value)) +  '<br>';
                 }
             }
         }
