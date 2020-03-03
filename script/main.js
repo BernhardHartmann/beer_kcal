@@ -105,11 +105,12 @@
             productId = productId + 1;
 
 			beer = localStorage.getItem("cal");
+			beerName = localStorage.getItem("beerName");
 			//document.getElementById("data_price").getAttribute("data-price");
 
             var productAdded = '<li class="cd-cart__product"><div class="cd-cart__image"><a href="#0">'+
             '<img src="img/product-preview.png" alt="placeholder"></a></div>'+
-            '<div class="cd-cart__details"><h3 class="truncate"><a href="#0">Product Name</a></h3>'+
+            '<div class="cd-cart__details"><h3 class="truncate"><a href="#0">'+beerName+'</a></h3>'+
             '<span id="myCaloriesID" class="cd-cart__price">'+beer+'</span><div class="cd-cart__actions">'+
             '<a href="#0" class="cd-cart__delete-item">Delete</a><div class="cd-cart__quantity">'+
             '<label for="cd-product-'+ productId +'">Qty</label><span class="cd-cart__select">'+

@@ -43,8 +43,10 @@ function getAllBarsFromBeerName() {
         $('#listOfBars li').remove();
 
         var beerId = arrayBeer[index][0].trim();
-        var calories = arrayBeer[index][4];
+        var calories = arrayBeer[index][4] *5; //for 500ml
+        var beerName = arrayBeer[index][1];
         localStorage.setItem("cal", calories);
+        localStorage.setItem("beerName", beerName)
 
         //console.log(calories);
 
