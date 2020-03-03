@@ -1,3 +1,5 @@
+var map;
+
 $(document).ready(function () {
     loadDataFromCSV();
     loadBeerNamesToAutocomplete();
@@ -36,10 +38,6 @@ function getAllBarsFromBeerName() {
 
         var index = arrayBeerNames.findIndex(x => x === beerName);
 
-        
-
-
-
         $('#listOfBars li').remove();
 
         var beerId = arrayBeer[index][0].trim();
@@ -59,6 +57,7 @@ function getAllBarsFromBeerName() {
 
 
         var destinations = [];
+        var specificBars = [];
 
         arrayPubs.forEach(element => {
             if (element[2].toString().indexOf(beerId) > -1) {
@@ -69,13 +68,19 @@ function getAllBarsFromBeerName() {
 
                 destinations.push(dest);
 
+                specificBars.push(element[1]);
+
                 $("#listOfBars").append('<li>' + element[1] + '</li>');
 
             }
 
             localStorage.setItem("destinations", undefined);
+            localStorage.setItem("specificBars", undefined);
             localStorage.setItem("destinations", JSON.stringify(destinations));
+            localStorage.setItem("specificBars", JSON.stringify(specificBars));
         });
+
+        google.maps.event.trigger(map, 'resize');
 
         return beerName;
           
@@ -145,12 +150,12 @@ function calc_calories_on_distance(person, durationSecs) {
 
     if (obj.gender == "Male") {
         BMR = 66 + (6.23 * obj.lbs) + (12.7 * obj.inches) - (6.8 * obj.age);
-        document.getElementById("kcal").innerHTML += BMR * Met / 24 * durationHours + " <br> ";
+        return BMR * Met / 24 * durationHours;
 
         //  alert("calories male"+BMR*Met/24 * 1);
     } else if (obj.gender == "Female") {
         BMR = 655 + (4.35 * obj.lbs) + (4.7 * obj.inches) - (4.7 * obj.age);
-        document.getElementById("kcal").innerHTML += BMR * Met / 24 * durationHours + "</br>";
+        return BMR * Met / 24 * durationHours;
         //alert("calories "+BMR*Met/24 * durationHours);  
     }
 }
@@ -172,13 +177,13 @@ function initMap() {
     var originIcon = 'https://chart.googleapis.com/chart?' +
         'chst=d_map_pin_letter&chld=O|FFFF00|000000';
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: 48.2080194, lng: 16.3720473 },
         zoom: 10
     });
     var geocoder = new google.maps.Geocoder;
-
     var destinations = JSON.parse(localStorage.getItem("destinations"));
+    var specificBars = JSON.parse(localStorage.getItem("specificBars"));
 
     var service = new google.maps.DistanceMatrixService;
     service.getDistanceMatrix({
@@ -214,7 +219,7 @@ function initMap() {
                 };
             };
 
-            
+            outputDiv.innerHTML += '<b>Current location:</b>' + '<br>' + originList[0] + '<br><br>' + "<b>Bars:<b> <br>";
             for (var i = 0; i < originList.length; i++) {
                 var results = response.rows[i].elements;
                 geocoder.geocode({ 'address': originList[i] },
@@ -223,9 +228,10 @@ function initMap() {
 
                     geocoder.geocode({ 'address': destinationList[j] },
                         showGeocodedAddressOnMap(true));
-                    outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
-                        ': ' + results[j].distance.text + ' in ' +
-                        results[j].duration.text + '<br>';
+                   
+                    outputDiv.innerHTML += specificBars[j] + ": "
+                            + results[j].distance.text + ' (' +
+                        results[j].duration.text + ')<br>';
 
                         calc_calories_on_distance(person, parseInt(results[j].duration.text)) +  '<br>';
                 }

@@ -39,12 +39,6 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
                 </ul>
-                <div class="navbar-text">
-                    <span>kcal Berechnung</span>
-                   
-                    <div id="kcal" class="alert alert-warning" role="alert">
-                    </div>
-                </div>
             </div>
         </nav>
         <form id="beerNamesForm">
@@ -53,10 +47,9 @@
                 <div class="col-8">
 
                     <div class="form-group">
-                        <input type="search" class="form-control" id="beerNames" aria-describedby="beerHelp" placeholder="Auf welches Bier hast du Bock?">
+                        <input type="search" class="form-control" id="beerNames" aria-describedby="beerHelp" placeholder="Which beer do you prefer?">
                         <small id="beerHelp" class="form-text text-muted">All beers from the Brau Union are available.</small>
                     </div>
-
 
                 </div>
                 <div class="col-4">
@@ -69,14 +62,14 @@
         <div id="beerDetails" style = "font-weight: bold; margin-bottom: 15px"></div>
 
         <div class="row">
-            <div class="col-4" id="output">
+            <div class="col-5" id="output">
                 
                 <ul id="listOfBars">
-                    <li id="noBeer">Es muss zuerst ein Bier gewählt werden.</li>
+                    <li id="noBeer">Please choose a beer at first!</li>
                 </ul>
 
             </div>
-            <div id="map" class="col-8">
+            <div id="map" class="col-7">
                 <!--Map-->
             </div>
         </div>
