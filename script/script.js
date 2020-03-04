@@ -150,12 +150,12 @@ function calc_calories_on_distance(person, durationSecs) {
 
     if (obj.gender == "Male") {
         BMR = 66 + (6.23 * obj.lbs) + (12.7 * obj.inches) - (6.8 * obj.age);
-        return BMR * Met / 24 * durationHours;
+        return Number.parseFloat(BMR * Met / 24 * durationHours).toFixed(2);
 
         //  alert("calories male"+BMR*Met/24 * 1);
     } else if (obj.gender == "Female") {
         BMR = 655 + (4.35 * obj.lbs) + (4.7 * obj.inches) - (4.7 * obj.age);
-        return BMR * Met / 24 * durationHours;
+        return Number.parseFloat(BMR * Met / 24 * durationHours).toFixed(2);
         //alert("calories "+BMR*Met/24 * durationHours);  
     }
 }
@@ -223,20 +223,18 @@ function initMap() {
                 };
             };
 
-            outputDiv.innerHTML += '<button type="button" class="btn btn-warning"><b>Current location:</b> ' + '<br>' + originList[0] + '</button><br>' + "<b>Bars:<b> <br>";
+            outputDiv.innerHTML += '<button type="button" class="btn btn-warning" style="width:100%;"><b>Current location:</b> ' + '<br>' + originList[0] + '</button><br>';
             for (var i = 0; i < originList.length; i++) {
-                outputDiv.innerHTML += '<b>current location: </b>:'+originList[i]
                 var results = response.rows[i].elements;
-                geocoder.geocode({ 'address': originList[i] },
-                    showGeocodedAddressOnMap(false));
+                console.log(results);
+                geocoder.geocode({ 'address': originList[i] }, showGeocodedAddressOnMap(false));
+
                 for (var j = 0; j < results.length; j++) {
                     //results.length
                     geocoder.geocode({ 'address': destinationList[j] },
                         showGeocodedAddressOnMap(true));
-                    outputDiv.innerHTML +='</br><b>Destination'+ (j+1) + '</b> <button type="button" class="btn btn-secondary" style="width:100%;">'+destinationList[j] + '</br> Distance : ' + results[j].distance.text + 
-                    ' </button> <br>';
-                    calc_calories_on_distance(person, parseInt(results[j].duration.value));
-                }
+                    outputDiv.innerHTML += '</br><b>Destination' + (j + 1) + '</b> <button type="button" class="btn btn-secondary" style="width:100%;">' + specificBars[j] + '</br> Distance : ' + results[j].distance.text + 
+                      '<br>Calories: ' +  calc_calories_on_distance(person, parseInt(results[j].duration.value)) + '</button><br>';                }
             }
         }
     });
