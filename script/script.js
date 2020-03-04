@@ -219,7 +219,7 @@ function initMap() {
                 };
             };
 
-            outputDiv.innerHTML += '<b>Current location:</b>' + '<br>' + originList[0] + '<br><br>' + "<b>Bars:<b> <br>";
+            outputDiv.innerHTML += '<button type="button" class="btn btn-warning"><b>Current location:</b> ' + '<br>' + originList[0] + '</button><br>' + "<b>Bars:<b> <br>";
             for (var i = 0; i < originList.length; i++) {
                 outputDiv.innerHTML += '<b>current location: </b>:'+originList[i]
                 var results = response.rows[i].elements;
