@@ -80,9 +80,7 @@ function getAllBarsFromBeerName() {
             localStorage.setItem("specificBars", JSON.stringify(specificBars));
         });
 
-        google.maps.event.trigger(map, 'resize');
-
-        return beerName;
+        reloadMap();
           
         event.preventDefault();
     });
@@ -158,6 +156,28 @@ function calc_calories_on_distance(person, durationSecs) {
         return Number.parseFloat(BMR * Met / 24 * durationHours).toFixed(2);
         //alert("calories "+BMR*Met/24 * durationHours);  
     }
+}
+
+
+function loadScript() {
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://maps.googleapis.com/maps/api/js?' + 'key=AIzaSyAcAekU8Hu2OByMSG3kwrF1dDN9AkteWRk&callback=initMap';
+    document.body.appendChild(script);
+}
+
+function reloadMap() {
+    var scriptTags = document.body.getElementsByTagName('script');
+    console.log(scriptTags);
+
+    for (var i = 0; i < scriptTags.length; i++) {
+        if (scriptTags[i].src.indexOf('maps.googleapis.com') > -1) {
+            console.log(scriptTags[i]);
+            document.body.removeChild(scriptTags[i]);
+        }
+    }
+
+    loadScript();
 }
 
 
