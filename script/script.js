@@ -182,7 +182,11 @@ function initMap() {
         zoom: 10
     });
     var geocoder = new google.maps.Geocoder;
-    var destinations = JSON.parse(localStorage.getItem("destinations"));
+
+    if (localStorage.getItem("destinations")) {
+        var destinations = JSON.parse(localStorage.getItem("destinations"));
+    }
+    
     var specificBars = JSON.parse(localStorage.getItem("specificBars"));
 
     var service = new google.maps.DistanceMatrixService;
