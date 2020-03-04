@@ -43,6 +43,7 @@
                 <th scope="col">Age</th>
                 <th scope="col">Weight</th>
                 <th scope="col">Height</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -51,9 +52,11 @@
                 <td id="ageT"></td>
                 <td id="weightT"></td>
                 <td id="heightT"></td>
+                <td><a href="index.html"><button type="button" class="btn btn-info">Change user data</button></a></td>
               </tr>
             </tbody>
           </table>
+          
       </nav>
         <form id="beerNamesForm">
             <div class="row">
@@ -266,5 +269,6 @@
   document.getElementById("ageT").innerHTML = obj.age;    
   document.getElementById("weightT").innerHTML = obj.weight;    
   document.getElementById("heightT").innerHTML = obj.height;    
+
   </script>
 </html>

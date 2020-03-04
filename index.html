@@ -53,11 +53,9 @@
 <body>
 
 <form>
-
   <div class="form-group">
-    <label for="malefemale">Gender</label>
+    <label for="malefemale2">Gender</label>
     <select id="malefemale" class="form-control" required>
-      <option selected>choose your gender</option>
       <option>Male</option>
       <option>Female</option>
     </select>
@@ -76,10 +74,22 @@
       <label for="inputHeight">Enter height</label>
       <input type="number" class="form-control" id="height" placeholder="Enter height" required>
     </div>
-   
-      <a href="overview.html" onclick="checkInput()">Check data</a>
 
+      <a href="overview.html" onclick="checkInput()"><button type="button" class="btn btn-info">Enter user data</button></a>
   </form>
   
 </body>
+<script>
+    var person = localStorage.getItem('person'); 
+    var obj = JSON.parse(person);
+    if(obj != null){
+      console.log(obj);
+      console.log(obj.gender);
+      document.getElementById("weight").value = obj.weight;
+      document.getElementById("height").value = obj.height;
+      document.getElementById("malefemale").value = obj.gender;
+      document.getElementById("age").value = obj.age;
+    }
+        
+</script>
 </html>
