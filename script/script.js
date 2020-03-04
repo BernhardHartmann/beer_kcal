@@ -196,15 +196,14 @@ function initMap() {
                 var results = response.rows[i].elements;
                 geocoder.geocode({ 'address': originList[i] },
                     showGeocodedAddressOnMap(false));
-                for (var j = 0; j < 2; j++) {
+                for (var j = 0; j < results.length; j++) {
                     //results.length
                     geocoder.geocode({ 'address': destinationList[j] },
                         showGeocodedAddressOnMap(true));
-                    outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
-                        ': ' + results[j].distance.text + ' in ' +
-                        results[j].duration.text + '<br>';
-                        console.log(results[j].duration.value);
-                        calc_calories_on_distance(person, parseInt(results[j].duration.value)) +  '<br>';
+                    outputDiv.innerHTML += '<b>from</b>:'+originList[i] + ' <b>to</b> </br> ' +
+                    '<button type="button" class="btn btn-secondary" style="width:100%;">'+destinationList[j] + '</br> Distance : ' + results[j].distance.text + 
+                    ' </button> <br>';
+                    calc_calories_on_distance(person, parseInt(results[j].duration.value));
                 }
             }
         }
