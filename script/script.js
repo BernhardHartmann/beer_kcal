@@ -253,8 +253,11 @@ function initMap() {
                     //results.length
                     geocoder.geocode({ 'address': destinationList[j] },
                         showGeocodedAddressOnMap(true));
-                    outputDiv.innerHTML += '</br><b>Destination' + (j + 1) + '</b> <button type="button" class="btn btn-secondary" style="width:100%;">' + specificBars[j] + '</br> Distance : ' + results[j].distance.text + 
-                      '<br>Calories: ' +  calc_calories_on_distance(person, parseInt(results[j].duration.value)) + '</button><br>';                }
+                    outputDiv.innerHTML += '</br><b>Destination' + (j + 1) + '</b> <button type="button" class="btn btn-secondary" style="width:100%;">'+
+                    '<span class="glyphicon glyphicon-glass"></span> Bar: <b> ' + specificBars[j] +'</b></br>'+
+                    '<span class="glyphicon glyphicon-cog"></span> Distance: <b>' + results[j].distance.text +'</b></br>'+ 
+                    '<span class="glyphicon glyphicon-fire"></span> Calories: <b>' +  calc_calories_on_distance(person, parseInt(results[j].duration.value)) + '</b></button><br>';  
+                    }
             }
         }
     });
