@@ -223,21 +223,19 @@ function initMap() {
                 };
             };
 
-            outputDiv.innerHTML += '<b>Current location:</b>' + '<br>' + originList[0] + '<br><br>' + "<b>Bars:<b> <br>";
+            outputDiv.innerHTML += '<button type="button" class="btn btn-warning"><b>Current location:</b> ' + '<br>' + originList[0] + '</button><br>' + "<b>Bars:<b> <br>";
             for (var i = 0; i < originList.length; i++) {
+                outputDiv.innerHTML += '<b>current location: </b>:'+originList[i]
                 var results = response.rows[i].elements;
                 geocoder.geocode({ 'address': originList[i] },
                     showGeocodedAddressOnMap(false));
                 for (var j = 0; j < results.length; j++) {
-
+                    //results.length
                     geocoder.geocode({ 'address': destinationList[j] },
                         showGeocodedAddressOnMap(true));
-                   
-                    outputDiv.innerHTML += specificBars[j] + ": "
-                            + results[j].distance.text + ' (' +
-                        results[j].duration.text + ')<br>';
-
-                        calc_calories_on_distance(person, parseInt(results[j].duration.text)) +  '<br>';
+                    outputDiv.innerHTML +='</br><b>Destination'+ (j+1) + '</b> <button type="button" class="btn btn-secondary" style="width:100%;">'+destinationList[j] + '</br> Distance : ' + results[j].distance.text + 
+                    ' </button> <br>';
+                    calc_calories_on_distance(person, parseInt(results[j].duration.value));
                 }
             }
         }
