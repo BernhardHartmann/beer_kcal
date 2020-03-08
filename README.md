@@ -6,13 +6,18 @@ Beere2Beer is a project developed with goals of:
 
 
 ## Technologies Used
-* JS-Bootstrap<br/>
-* Google Maps API<br/>
+* JS Bootstrap<br/>
+* [Google JavaScript Maps API](https://developers.google.com/maps/documentation/javascript/tutorial "Maps API Tutorial") <br/>
+* [Google Distance Matrix API](https://developers.google.com/maps/documentation/javascript/distancematrix "Distance API Tutorial")<br/>
 
+For demonstration purposes, an API key will be provided temporaily to this project's Advisor until the 15th of March, 2020.<br/>
+
+On more information on how to create your own API key, please visit the following websites:<br/>
+* [Get an API Key](https://developers.google.com/maps/documentation/javascript/get-api-key) <br/>
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License
 
 ## Acknowledgments
 
